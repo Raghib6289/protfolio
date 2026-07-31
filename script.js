@@ -314,19 +314,25 @@ document.addEventListener("DOMContentLoaded", function () {
         // Check for image/visual keywords
         const visualKeywords = ['image', 'photo', 'picture', 'pic', 'visual', 'draw', 'paint', 'illustration', 'artwork', 'sketch', 'render', 'wallpaper', 'generate'];
         if (visualKeywords.some(kw => q.includes(kw)) && !q.includes('how to')) {
-            const rawPrompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic 3d cyberpunk city';
-            let selectedModel = 'sdxl'; // Default to Stable Diffusion XL
-            if (rawPrompt.toLowerCase().includes('flux')) {
-                selectedModel = 'flux';
-            } else if (rawPrompt.toLowerCase().includes('turbo')) {
-                selectedModel = 'turbo';
+            const rawPrompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic cyberpunk city';
+            const cleanPrompt = rawPrompt;
+            const lowerPrompt = cleanPrompt.toLowerCase();
+            const enhancements = [];
+
+            if (lowerPrompt.includes('photo') || lowerPrompt.includes('real') || lowerPrompt.includes('portrait') || lowerPrompt.includes('person') || lowerPrompt.includes('man') || lowerPrompt.includes('woman') || lowerPrompt.includes('face') || lowerPrompt.includes('human')) {
+                enhancements.push('photorealistic 8k photography', 'shot on 35mm lens', 'natural skin texture', 'sharp focus', 'cinematic lighting', 'high resolution');
+            } else if (lowerPrompt.includes('3d') || lowerPrompt.includes('render') || lowerPrompt.includes('cyberpunk') || lowerPrompt.includes('robot') || lowerPrompt.includes('city') || lowerPrompt.includes('sci-fi') || lowerPrompt.includes('futuristic')) {
+                enhancements.push('detailed 3d render', 'octane render', 'unreal engine 5', 'cinematic ray tracing', 'volumetric lighting', '4k texture');
+            } else if (lowerPrompt.includes('anime') || lowerPrompt.includes('illustration') || lowerPrompt.includes('art') || lowerPrompt.includes('draw') || lowerPrompt.includes('paint') || lowerPrompt.includes('sketch')) {
+                enhancements.push('masterpiece digital illustration', 'intricate fine detail', 'vibrant color grading', 'trending on artstation');
+            } else {
+                enhancements.push('photorealistic high definition', 'hyperrealistic lighting', 'sharp crisp focus', 'masterpiece 8k');
             }
-            const enhancedPrompt = (rawPrompt.toLowerCase().includes('3d') || rawPrompt.toLowerCase().includes('4k'))
-                ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed, masterpiece, best quality`
-                : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed, masterpiece`;
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=${selectedModel}&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+
+            const enhancedPrompt = `${cleanPrompt}, ${enhancements.join(', ')}`;
+            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
             return {
-                text: `Here is your high-definition image generated with **${selectedModel.toUpperCase() === 'SDXL' ? 'Stable Diffusion XL' : selectedModel.toUpperCase()}**! 🎨✨`,
+                text: "Here is your high-definition image generated with **FLUX.1 Schnell**! 🎨✨",
                 image: imgUrl
             };
         }

@@ -109,6 +109,24 @@ function extractPrompt(message) {
   return cleaned.length > 0 && cleaned !== 'image' && cleaned !== '/image' ? cleaned : getRandomPrompt();
 }
 
+function buildContextualEnhancedPrompt(prompt) {
+  const cleanPrompt = prompt.trim();
+  const lower = cleanPrompt.toLowerCase();
+  const enhancements = [];
+
+  if (lower.includes('photo') || lower.includes('real') || lower.includes('portrait') || lower.includes('person') || lower.includes('man') || lower.includes('woman') || lower.includes('face') || lower.includes('human')) {
+    enhancements.push('photorealistic 8k photography', 'shot on 35mm lens', 'natural skin texture', 'sharp focus', 'cinematic lighting', 'high resolution');
+  } else if (lower.includes('3d') || lower.includes('render') || lower.includes('cyberpunk') || lower.includes('robot') || lower.includes('city') || lower.includes('sci-fi') || lower.includes('futuristic')) {
+    enhancements.push('detailed 3d render', 'octane render', 'unreal engine 5', 'cinematic ray tracing', 'volumetric lighting', '4k texture');
+  } else if (lower.includes('anime') || lower.includes('illustration') || lower.includes('art') || lower.includes('draw') || lower.includes('paint') || lower.includes('sketch')) {
+    enhancements.push('masterpiece digital illustration', 'intricate fine detail', 'vibrant color grading', 'trending on artstation');
+  } else {
+    enhancements.push('photorealistic high definition', 'hyperrealistic lighting', 'sharp crisp focus', 'masterpiece 8k');
+  }
+
+  return `${cleanPrompt}, ${enhancements.join(', ')}`;
+}
+
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -139,20 +157,11 @@ module.exports = async (req, res) => {
 
   if (isImageRequest) {
     const rawPrompt = extractPrompt(message);
-    let selectedModel = 'sdxl'; // Default to Stable Diffusion XL
-    if (rawPrompt.toLowerCase().includes('flux')) {
-      selectedModel = 'flux';
-    } else if (rawPrompt.toLowerCase().includes('turbo')) {
-      selectedModel = 'turbo';
-    }
-
-    const enhancedPrompt = (rawPrompt.toLowerCase().includes('3d') || rawPrompt.toLowerCase().includes('4k'))
-      ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed, masterpiece, best quality`
-      : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed, masterpiece`;
+    const enhancedPrompt = buildContextualEnhancedPrompt(rawPrompt);
     try {
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=${selectedModel}&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       return res.status(200).json({
-        response: `Here is your high-definition image generated with **${selectedModel.toUpperCase() === 'SDXL' ? 'Stable Diffusion XL' : selectedModel.toUpperCase()}**! 🎨✨`,
+        response: "Here is your high-definition image generated with **FLUX.1 Schnell**! 🎨✨",
         image: imageUrl
       });
     } catch (err) {
