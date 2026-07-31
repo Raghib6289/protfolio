@@ -163,7 +163,7 @@ ${personalDataText}
 If question is unrelated, reply: "Sorry, I can only answer questions related to Md Raghib's personal information."`;
 
       const geminiModel = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
+        model: "gemini-3.1-flash-lite",
         systemInstruction: systemInstruction
       });
 
