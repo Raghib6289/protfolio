@@ -1120,6 +1120,13 @@ span {
     transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.ai-toggle-btn span {
+    color: #ffd700;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
 .ai-toggle-btn i {
     font-size: 2rem;
     animation: pulseRobot 2s infinite;
