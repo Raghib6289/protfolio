@@ -985,6 +985,23 @@ span {
 }
 
 @media (max-width: 995px) {
+    section {
+        min-height: auto;
+        padding: 7rem 5% 4rem;
+    }
+
+    .home {
+        min-height: calc(100vh - 7rem);
+    }
+
+    .heading {
+        margin-bottom: 3.5rem;
+    }
+
+    .certifications {
+        padding-bottom: 4rem;
+    }
+
     .certi-slider-wrapper {
         padding: 0 4.5rem;
     }
@@ -996,6 +1013,29 @@ span {
 }
 
 @media (max-width: 768px) {
+    section {
+        min-height: auto;
+        padding: 5.5rem 5% 3.5rem;
+    }
+
+    .home {
+        min-height: calc(100vh - 6rem);
+        padding-top: 9rem;
+    }
+
+    .heading {
+        font-size: 3.2rem;
+        margin-bottom: 2.8rem;
+    }
+
+    .certifications {
+        padding-bottom: 3.5rem;
+    }
+
+    .certi-slider-container {
+        padding: 0.5rem 0 1rem;
+    }
+
     .certi-slider-wrapper {
         padding: 0 3.2rem;
     }
@@ -1028,6 +1068,15 @@ span {
 }
 
 @media (max-width: 600px) {
+    section {
+        padding: 4.5rem 4% 2.8rem;
+    }
+
+    .heading {
+        font-size: 2.8rem;
+        margin-bottom: 2.2rem;
+    }
+
     .footer {
         flex-direction: column-reverse;
         gap: 2rem;
