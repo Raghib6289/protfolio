@@ -100,6 +100,56 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(type, 500);
     }
 
+    // Contact Form Submission to kraghib123@gmail.com & Thank You Modal
+    const contactForm = document.getElementById("contact-form");
+    const thankyouModal = document.getElementById("thankyou-modal");
+    const contactSubmitBtn = document.getElementById("contact-submit-btn");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (contactSubmitBtn) {
+                contactSubmitBtn.value = "Sending...";
+                contactSubmitBtn.disabled = true;
+            }
+
+            const formData = new FormData(contactForm);
+
+            fetch("https://formsubmit.co/ajax/kraghib123@gmail.com", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    showThankYouModal();
+                    contactForm.reset();
+                })
+                .catch(error => {
+                    showThankYouModal();
+                    contactForm.reset();
+                })
+                .finally(() => {
+                    if (contactSubmitBtn) {
+                        contactSubmitBtn.value = "Send Message";
+                        contactSubmitBtn.disabled = false;
+                    }
+                });
+        });
+    }
+
+    function showThankYouModal() {
+        if (thankyouModal) {
+            thankyouModal.classList.add("active");
+            setTimeout(() => {
+                thankyouModal.classList.remove("active");
+            }, 3000); // Auto close within 3 seconds
+        }
+    }
+
     // AI Assistant Chatbot Toggle & Interactive Functionality
     const aiToggleBtn = document.getElementById("ai-toggle-btn");
     const aiChatWindow = document.getElementById("ai-chat-window");

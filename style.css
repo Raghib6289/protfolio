@@ -840,6 +840,74 @@ span {
     box-shadow: 0 0 20px rgba(183, 75, 75, 0.4);
 }
 
+/* Thank You Glassmorphic Popup Modal */
+.thankyou-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.thankyou-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.thankyou-content {
+    background: linear-gradient(135deg, #1a1010 0%, #0d0d0d 100%);
+    border: 2px solid #b74b4b;
+    border-radius: 2.5rem;
+    padding: 3.5rem 3rem;
+    text-align: center;
+    max-width: 460px;
+    width: 90%;
+    box-shadow: 0 0 40px rgba(183, 75, 75, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.85);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.thankyou-modal.active .thankyou-content {
+    transform: scale(1);
+}
+
+.thankyou-icon {
+    font-size: 5rem;
+    color: #b74b4b;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 15px rgba(183, 75, 75, 0.6));
+    animation: popIcon 0.6s ease;
+}
+
+.thankyou-content h3 {
+    font-size: 2.4rem;
+    color: white;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.thankyou-content p {
+    font-size: 1.45rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+@keyframes popIcon {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
 .contact form textarea {
     resize: none;
 }
