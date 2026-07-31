@@ -122,6 +122,33 @@ function extractPrompt(message) {
   return { isRandom: true, prompt: getRandomPrompt() };
 }
 
+async function generateImagen3Buffer(prompt, apiKey) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      instances: [{ prompt: prompt }],
+      parameters: {
+        sampleCount: 1,
+        aspectRatio: "1:1",
+        outputOptions: { mimeType: "image/jpeg" }
+      }
+    })
+  });
+
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`Google Imagen 3 API error (${response.status}): ${errText}`);
+  }
+
+  const data = await response.json();
+  if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
+    return Buffer.from(data.predictions[0].bytesBase64Encoded, 'base64');
+  }
+  throw new Error("No image bytes returned from Google Imagen 3 API");
+}
+
 async function generateImage(prompt) {
   if (!isHFEnabled) {
     throw new Error("Hugging Face API key is not configured.");
@@ -324,23 +351,35 @@ app.post('/api/chat', async (req, res) => {
     
     try {
       let imageBuffer;
+      const geminiApiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
-      if (isHFEnabled) {
+      if (geminiApiKey && geminiApiKey.trim() !== "") {
         try {
-          imageBuffer = await generateImage(prompt);
-        } catch (hfErr) {
-          console.error("Hugging Face image generation failed, falling back to Pollinations AI. Error:", hfErr.message);
+          imageBuffer = await generateImagen3Buffer(prompt, geminiApiKey);
+          console.log("Image generated successfully via Google Imagen 3 (Gemini Pro)!");
+        } catch (gErr) {
+          console.error("Google Imagen 3 failed, trying secondary fallback. Error:", gErr.message);
+        }
+      }
+
+      if (!imageBuffer) {
+        if (isHFEnabled) {
+          try {
+            imageBuffer = await generateImage(prompt);
+          } catch (hfErr) {
+            console.error("Hugging Face image generation failed, falling back to Pollinations AI. Error:", hfErr.message);
+            imageBuffer = await getFallbackImage(prompt);
+          }
+        } else {
           imageBuffer = await getFallbackImage(prompt);
         }
-      } else {
-        imageBuffer = await getFallbackImage(prompt);
       }
 
       const base64Image = imageBuffer.toString('base64');
       const imageDataUrl = `data:image/jpeg;base64,${base64Image}`;
       
       return res.json({
-        response: "",
+        response: "Here is your photorealistic image generated via **Google Imagen 3 (Gemini Pro)**! 🎨✨",
         image: imageDataUrl
       });
     } catch (err) {

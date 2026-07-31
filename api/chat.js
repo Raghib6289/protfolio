@@ -127,6 +127,33 @@ function buildContextualEnhancedPrompt(prompt) {
   return `${cleanPrompt}, ${enhancements.join(', ')}`;
 }
 
+async function generateImagen3Image(prompt, apiKey) {
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      instances: [{ prompt: prompt }],
+      parameters: {
+        sampleCount: 1,
+        aspectRatio: "1:1",
+        outputOptions: { mimeType: "image/jpeg" }
+      }
+    })
+  });
+
+  if (!response.ok) {
+    const errText = await response.text();
+    throw new Error(`Google Imagen 3 API error (${response.status}): ${errText}`);
+  }
+
+  const data = await response.json();
+  if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
+    return `data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}`;
+  }
+  throw new Error("No image bytes returned from Google Imagen 3 API");
+}
+
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -158,6 +185,20 @@ module.exports = async (req, res) => {
   if (isImageRequest) {
     const rawPrompt = extractPrompt(message);
     const enhancedPrompt = buildContextualEnhancedPrompt(rawPrompt);
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+
+    if (apiKey && apiKey.trim() !== "") {
+      try {
+        const imagenUrl = await generateImagen3Image(enhancedPrompt, apiKey);
+        return res.status(200).json({
+          response: "Here is your photorealistic image generated via **Google Imagen 3 (Gemini Pro)**! 🎨✨",
+          image: imagenUrl
+        });
+      } catch (geminiErr) {
+        console.warn("Google Imagen 3 generation failed, falling back to FLUX.1 Schnell:", geminiErr.message);
+      }
+    }
+
     try {
       const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       return res.status(200).json({
