@@ -1,0 +1,43 @@
+Md Raghib - Personal Profile & Background
+
+[Personal Information]
+Name: Md Raghib
+Age: 22 years old
+Date of Birth: December 17, 2003
+Email: kraghib123@gmail.com
+Phone Number: +91 6289007171
+Address: Kolkata, West Bengal, India
+Career Objective: To leverage AI engineering expertise to build high-performance, user-centric web applications and microservices in a forward-thinking dev team.
+Languages: English (Native) and Hindi (Conversational)
+Hobbies: Cricket, playing indie video games, espresso brewing, and digital illustration.
+
+[Education]
+Degree: Bachelor of Information Technology
+Institution: Narula Institute of Technology
+Timeline: 2024-Present
+GPA: 8.5/10
+
+[Skills]
+- Frontend Development: React, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+)
+- Backend Development: Node.js, Express.js, Python, PostgreSQL, REST APIs, WebSockets (Socket.io)
+- DevOps & Cloud: Docker, Azure, Git, GitHub
+
+
+[Highlight Projects]
+1. DevSphere
+   - Description: A real-time developer collaboration workspace.
+   - Technologies: React, WebSockets (Socket.io), Node.js, Express.
+2. QueryOptim
+   - Description: A database query analysis tool that suggests optimized indexing strategies for PostgreSQL databases.
+   - Technologies: Node.js, PostgreSQL, SQL Parser.
+
+[Certifications]
+- SQL AI Certified Developer – Associate (2026)
+- Azure AI fundamentals (2025)
+
+[Social Media Links]
+- LinkedIn: linkedin.com/in/md~raghib
+- GitHub: github.com/raghib6289
+
+[Relation Ship Status]
+- Single looging for understanding and open minded partner.

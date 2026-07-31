@@ -1,0 +1,13 @@
+{
+  "name": "md-raghib-portfolio",
+  "version": "1.0.0",
+  "description": "Md Raghib - Personal Portfolio & AI Assistant",
+  "main": "script.js",
+  "scripts": {
+    "start": "node personal_ai/server.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^16.4.5"
+  }
+}
