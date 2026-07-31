@@ -325,9 +325,8 @@ app.post('/api/chat', async (req, res) => {
       const base64Image = imageBuffer.toString('base64');
       const imageDataUrl = `data:image/jpeg;base64,${base64Image}`;
       
-      let responseText = `Here is your generated image for prompt: "**${prompt}**"`;
       return res.json({
-        response: responseText,
+        response: "",
         image: imageDataUrl
       });
     } catch (err) {

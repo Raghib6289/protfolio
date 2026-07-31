@@ -142,7 +142,7 @@ module.exports = async (req, res) => {
     try {
       const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=800&height=600&seed=${Math.floor(Math.random() * 1000000)}`;
       return res.status(200).json({
-        response: `Here is your generated image for prompt: "**${prompt}**"`,
+        response: "",
         image: imageUrl
       });
     } catch (err) {

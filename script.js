@@ -193,14 +193,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("chat-message", `${sender}-message`);
 
-        let formattedText = formatMarkdown(text);
+        let formattedText = text ? formatMarkdown(text) : "";
 
         if (sender === "bot") {
             let imgHTML = imageUrl ? `<img src="${imageUrl}" alt="Generated Image" class="chat-img-preview">` : "";
+            let textHTML = formattedText.trim() ? `<p>${formattedText}</p>` : "";
             msgDiv.innerHTML = `
                 <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
                 <div class="message-content">
-                    <p>${formattedText}</p>
+                    ${textHTML}
                     ${imgHTML}
                 </div>
             `;
@@ -241,12 +242,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function escapeHTML(str) {
+        if (!str) return "";
         return str.replace(/[&<>'"]/g, 
             tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
         );
     }
 
     function formatMarkdown(text) {
+        if (!text) return "";
         let formatted = escapeHTML(text);
         // Bold: **text**
         formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -265,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const prompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic cyberpunk city';
             const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=800&height=600&seed=${Math.floor(Math.random() * 1000000)}`;
             return {
-                text: `Here is your generated visual for prompt: "**${prompt}**"`,
+                text: "",
                 image: imgUrl
             };
         }

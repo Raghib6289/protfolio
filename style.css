@@ -46,17 +46,22 @@ header.sticky {
 }
 
 .logo {
-    font-size: 3rem;
+    font-size: 3.2rem;
     color: white;
     font-weight: 800;
     cursor: pointer;
     transition: 0.4s ease;
     letter-spacing: 0.1rem;
+    display: inline-flex;
+    align-items: center;
 }
 
 .logo .logo-r {
     color: #b74b4b;
-    display: inline-block;
+    font-size: 4rem;
+    font-weight: 900;
+    margin-right: 1px;
+    line-height: 1;
     text-shadow: 0 0 15px #b74b4b, 0 0 25px #b74b4b, 0 0 40px #b74b4b;
     animation: glowR 2.5s infinite alternate ease-in-out;
 }
