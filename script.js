@@ -311,8 +311,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const slideDelay = 3000; // 3 seconds continuous float
 
         function getVisibleCardsCount() {
-            if (window.innerWidth <= 600) return 1;
-            if (window.innerWidth <= 995) return 2;
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 1100) return 2;
             return 3;
         }
 
@@ -329,13 +329,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentCertiIndex = maxIndex;
             }
 
-            const firstCard = certiCards[0];
-            const cardWidth = firstCard.offsetWidth;
-            const style = window.getComputedStyle(certiTrack);
-            const gap = parseFloat(style.gap) || 25;
-
-            const moveDistance = currentCertiIndex * (cardWidth + gap);
-            certiTrack.style.transform = `translateX(-${moveDistance}px)`;
+            const visible = getVisibleCardsCount();
+            if (visible === 1) {
+                certiTrack.style.transform = `translateX(-${currentCertiIndex * 100}%)`;
+            } else {
+                const firstCard = certiCards[0];
+                const cardWidth = firstCard.offsetWidth;
+                const style = window.getComputedStyle(certiTrack);
+                const gap = parseFloat(style.gap) || 25;
+                const moveDistance = currentCertiIndex * (cardWidth + gap);
+                certiTrack.style.transform = `translateX(-${moveDistance}px)`;
+            }
         }
 
         function nextSlide() {

@@ -984,6 +984,49 @@ span {
     }
 }
 
+@media (max-width: 995px) {
+    .certi-slider-wrapper {
+        padding: 0 4.5rem;
+    }
+
+    .certi-card {
+        flex: 0 0 calc(50% - 1.25rem);
+        min-width: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .certi-slider-wrapper {
+        padding: 0 3.2rem;
+    }
+
+    .certi-side-btn {
+        width: 3.8rem;
+        height: 3.8rem;
+        font-size: 1.4rem;
+    }
+
+    .certi-prev-side {
+        left: -0.4rem;
+    }
+
+    .certi-next-side {
+        right: -0.4rem;
+    }
+
+    .certi-track {
+        gap: 0;
+    }
+
+    .certi-card {
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
 @media (max-width: 600px) {
     .footer {
         flex-direction: column-reverse;
