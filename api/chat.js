@@ -139,13 +139,20 @@ module.exports = async (req, res) => {
 
   if (isImageRequest) {
     const rawPrompt = extractPrompt(message);
+    let selectedModel = 'sdxl'; // Default to Stable Diffusion XL
+    if (rawPrompt.toLowerCase().includes('flux')) {
+      selectedModel = 'flux';
+    } else if (rawPrompt.toLowerCase().includes('turbo')) {
+      selectedModel = 'turbo';
+    }
+
     const enhancedPrompt = (rawPrompt.toLowerCase().includes('3d') || rawPrompt.toLowerCase().includes('4k'))
-      ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed`
-      : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed`;
+      ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed, masterpiece, best quality`
+      : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed, masterpiece`;
     try {
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=${selectedModel}&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       return res.status(200).json({
-        response: "Here is your 3D 4K ultra high-quality generated image! 🎨✨",
+        response: `Here is your high-definition image generated with **${selectedModel.toUpperCase() === 'SDXL' ? 'Stable Diffusion XL' : selectedModel.toUpperCase()}**! 🎨✨`,
         image: imageUrl
       });
     } catch (err) {
