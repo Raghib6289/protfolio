@@ -138,11 +138,14 @@ module.exports = async (req, res) => {
   const isImageRequest = visualKeywords.some(kw => lowerMessage.includes(kw)) && !lowerMessage.includes('how to');
 
   if (isImageRequest) {
-    const prompt = extractPrompt(message);
+    const rawPrompt = extractPrompt(message);
+    const enhancedPrompt = (rawPrompt.toLowerCase().includes('3d') || rawPrompt.toLowerCase().includes('4k'))
+      ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed`
+      : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed`;
     try {
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=800&height=600&seed=${Math.floor(Math.random() * 1000000)}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
       return res.status(200).json({
-        response: "",
+        response: "Here is your 3D 4K ultra high-quality generated image! 🎨✨",
         image: imageUrl
       });
     } catch (err) {

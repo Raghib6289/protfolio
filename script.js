@@ -314,10 +314,13 @@ document.addEventListener("DOMContentLoaded", function () {
         // Check for image/visual keywords
         const visualKeywords = ['image', 'photo', 'picture', 'pic', 'visual', 'draw', 'paint', 'illustration', 'artwork', 'sketch', 'render', 'wallpaper', 'generate'];
         if (visualKeywords.some(kw => q.includes(kw)) && !q.includes('how to')) {
-            const prompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic cyberpunk city';
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=800&height=600&seed=${Math.floor(Math.random() * 1000000)}`;
+            const rawPrompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic 3d cyberpunk city';
+            const enhancedPrompt = (rawPrompt.toLowerCase().includes('3d') || rawPrompt.toLowerCase().includes('4k'))
+                ? `${rawPrompt}, octane render, 4k resolution, ray tracing, ultra detailed`
+                : `${rawPrompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed`;
+            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
             return {
-                text: "",
+                text: "Here is your 3D 4K ultra high-quality generated image! 🎨✨",
                 image: imgUrl
             };
         }

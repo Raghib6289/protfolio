@@ -162,8 +162,10 @@ async function generateImage(prompt) {
 
 async function getFallbackImage(prompt) {
   try {
-    // Fetch a generated image from Pollinations AI based on the prompt
-    const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=800&height=600&seed=${Math.floor(Math.random() * 1000000)}`;
+    const enhancedPrompt = (prompt.toLowerCase().includes('3d') || prompt.toLowerCase().includes('4k'))
+      ? `${prompt}, octane render, 4k resolution, ray tracing, ultra detailed`
+      : `${prompt}, 3d render, 4k ultra hd, photorealistic, octane render, ray tracing, cinematic lighting, highly detailed`;
+    const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Pollinations AI error: ${response.status}`);
