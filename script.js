@@ -53,7 +53,6 @@ const textArray = [
     "Web Developer",
     "Software Developer",
     "Web Designer",
-    "SQL & Data Analyst",
     "Full-Stack Engineer"
 ];
 
@@ -327,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return "Hi there! 👋 How can I help you regarding **Md Raghib's** background, skills, or portfolio?";
         }
         if (q.includes("who is") || q.includes("name") || q.includes("about") || q.includes("raghib")) {
-            return "<strong>Md Raghib</strong> is a 22-year-old **Software Developer, Web Developer, Web Designer & SQL Data Analyst** based in Kolkata, India. He builds responsive, scalable web applications and data-driven solutions.";
+            return "<strong>Md Raghib</strong> is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He builds responsive, scalable web applications and user-centered solutions.";
         }
         if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("code")) {
             return "Here are Raghib's primary skills:\n- **Frontend**: HTML5, CSS3, JavaScript (ES6+), React, TypeScript, TailwindCSS\n- **Backend & Database**: SQL, PostgreSQL, MySQL, Node.js, Express, Python\n- **Tools**: Git, GitHub, Docker, Azure";
