@@ -13,6 +13,7 @@ Phone Number: +91 6289007171
 Address: Kolkata, West Bengal, India
 Career Objective: To leverage AI engineering expertise to build high-performance, user-centric web applications and microservices in a forward-thinking dev team.
 Languages: English (Native) and Hindi (Conversational)
+Hobbies: Cricket, playing indie video games, espresso brewing, and digital illustration.
 
 [Education]
 Degree: Bachelor of Technology in Information Technology
@@ -22,7 +23,7 @@ GPA: 8.5/10
 
 [Skills]
 - Frontend Development: React, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+)
-- Backend Development: Node.js, Express.js, Python, PostgreSQL, MySQL, REST APIs, WebSockets (Socket.io)
+- Backend & Database: SQL, PostgreSQL, MySQL, Node.js, Express.js, Python, REST APIs, WebSockets (Socket.io)
 - DevOps & Cloud: Docker, Azure, Git, GitHub
 
 [Highlight Projects]
@@ -31,8 +32,11 @@ GPA: 8.5/10
 3. DevSphere (Real-time developer collaboration workspace built with React & WebSockets)
 
 [Certifications]
-- SQL AI Certified Developer – Associate (2026)
-- Azure AI Fundamentals (2025)
+1. SQL AI Certified Developer – Associate (2026) - Core competencies in database schemas, indexing, and complex queries.
+2. Microsoft Certified: Azure AI Fundamentals (2025) - AI workloads, machine learning models, computer vision, and NLP.
+3. Data Analytics Professional Certification - Data pipeline processing, visualization dashboards, and statistical modeling.
+4. Deloitte Consulting Data Analytics Virtual Experience - Technology consulting business intelligence case study work.
+5. GeeksforGeeks Generative AI & LLM Engineering Specialization - Large Language Models (LLMs), prompt engineering, RAG, and AI architecture.
 
 [Social Media Links]
 - LinkedIn: linkedin.com/in/md~raghib
@@ -49,6 +53,7 @@ const personalDataFallback = {
   education: "Bachelor of Technology in Information Technology from Narula Institute of Technology (2024-Present, GPA: 8.5/10)",
   skills: "Frontend: HTML5, CSS3, JavaScript, React, TypeScript, TailwindCSS\nBackend: SQL, PostgreSQL, MySQL, Node.js, Express, Python\nTools: Git, GitHub, Docker, Azure",
   projects: "1. Personal Portfolio Web App with AI Assistant\n2. SQL Data Analytics & Query System\n3. DevSphere Real-time Workspace",
+  certifications: "1. SQL AI Certified Developer – Associate (2026)\n2. Azure AI Fundamentals (2025)\n3. Data Analytics Professional Certification\n4. Deloitte Consulting Data Analytics\n5. GeeksforGeeks Generative AI & LLM Engineering Specialization",
   socials: "LinkedIn: linkedin.com/in/md~raghib | GitHub: github.com/raghib6289"
 };
 
@@ -57,7 +62,7 @@ function findAnswerLocal(query) {
 
   const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo'];
   if (greetings.some(greet => cleanQuery.startsWith(greet) || cleanQuery === greet)) {
-    return "Hi there! 👋 I am Md Raghib's Assistant. Ask me about Md Raghib's skills, projects, contact details, or education!";
+    return "Hi there! 👋 I am Md Raghib's Assistant. Ask me about Md Raghib's skills, projects, certifications, contact details, or education!";
   }
 
   const keywordMappings = [
@@ -69,6 +74,7 @@ function findAnswerLocal(query) {
     { keys: ['education', 'university', 'college', 'degree', 'study'], answer: `I am studying **${personalDataFallback.education}**.` },
     { keys: ['skills', 'skill', 'technologies', 'programming', 'stack'], answer: `Here are my core technical skills:\n${personalDataFallback.skills}` },
     { keys: ['projects', 'project', 'portfolio', 'built'], answer: `Here are my recent highlight projects:\n${personalDataFallback.projects}` },
+    { keys: ['certif', 'certifications', 'certificate', 'credential'], answer: `Here are my 5 certifications:\n${personalDataFallback.certifications}` },
     { keys: ['contact', 'reach me', 'touch'], answer: `You can reach me via email at **${personalDataFallback.email}** or call **${personalDataFallback.phone}**.\nSocials: ${personalDataFallback.socials}` }
   ];
 
@@ -78,7 +84,7 @@ function findAnswerLocal(query) {
     }
   }
 
-  return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, and contact details!";
+  return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, certifications, and contact details!";
 }
 
 module.exports = async (req, res) => {
@@ -111,7 +117,7 @@ module.exports = async (req, res) => {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
       const systemInstruction = `You are a helpful, professional AI assistant for Md Raghib.
-Answer questions about Md Raghib's personal background, portfolio, education, skills, and experience.
+Answer questions about Md Raghib's personal background, portfolio, education, skills, certifications, and experience.
 Database:
 ${personalDataText}
 

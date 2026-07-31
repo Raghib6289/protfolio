@@ -12,32 +12,28 @@ Languages: English (Native) and Hindi (Conversational)
 Hobbies: Cricket, playing indie video games, espresso brewing, and digital illustration.
 
 [Education]
-Degree: Bachelor of Information Technology
+Degree: Bachelor of Technology in Information Technology
 Institution: Narula Institute of Technology
 Timeline: 2024-Present
 GPA: 8.5/10
 
 [Skills]
 - Frontend Development: React, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+)
-- Backend Development: Node.js, Express.js, Python, PostgreSQL, REST APIs, WebSockets (Socket.io)
+- Backend & Database: SQL, PostgreSQL, MySQL, Node.js, Express.js, Python, REST APIs, WebSockets (Socket.io)
 - DevOps & Cloud: Docker, Azure, Git, GitHub
 
-
 [Highlight Projects]
-1. DevSphere
-   - Description: A real-time developer collaboration workspace.
-   - Technologies: React, WebSockets (Socket.io), Node.js, Express.
-2. QueryOptim
-   - Description: A database query analysis tool that suggests optimized indexing strategies for PostgreSQL databases.
-   - Technologies: Node.js, PostgreSQL, SQL Parser.
+1. Personal Portfolio Web Application (Responsive layout, dark-crimson theme, scrollSpy, dynamic typewriter animation, AI Assistant)
+2. SQL Data Analytics System (Relational DB, complex JOINs, query indexing, data reports)
+3. DevSphere (Real-time developer collaboration workspace built with React & WebSockets)
 
 [Certifications]
-- SQL AI Certified Developer – Associate (2026)
-- Azure AI fundamentals (2025)
+1. SQL AI Certified Developer – Associate (2026) - Core competencies in database schemas, indexing, and complex queries.
+2. Microsoft Certified: Azure AI Fundamentals (2025) - AI workloads, machine learning models, computer vision, and NLP.
+3. Data Analytics Professional Certification - Data pipeline processing, visualization dashboards, and statistical modeling.
+4. Deloitte Consulting Data Analytics Virtual Experience - Technology consulting business intelligence case study work.
+5. GeeksforGeeks Generative AI & LLM Engineering Specialization - Large Language Models (LLMs), prompt engineering, RAG, and AI architecture.
 
 [Social Media Links]
 - LinkedIn: linkedin.com/in/md~raghib
 - GitHub: github.com/raghib6289
-
-[Relation Ship Status]
-- Single looging for understanding and open minded partner.

@@ -77,7 +77,7 @@ const personalDataFallback = {
   skills: "Frontend Development: React, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+)\nBackend Development: Node.js, Express.js, Python, PostgreSQL, REST APIs, WebSockets (Socket.io)\nDevOps & Cloud: Docker, Azure, Git, GitHub",
   experience: "I do not have any formal work experience listed in my profile yet.",
   projects: "1. DevSphere: A real-time developer collaboration workspace built using React, WebSockets (Socket.io), Node.js, and Express.\n2. QueryOptim: A database query analysis tool that suggests optimized indexing strategies for PostgreSQL databases built using Node.js, PostgreSQL, and SQL Parser.",
-  certifications: "SQL AI Certified Developer – Associate (2026), Azure AI fundamentals (2025)",
+  certifications: "\n1. SQL AI Certified Developer – Associate (2026)\n2. Microsoft Certified: Azure AI Fundamentals (2025)\n3. Data Analytics Professional Certification\n4. Deloitte Consulting Data Analytics Virtual Experience\n5. GeeksforGeeks Generative AI & LLM Engineering Specialization",
   languages: "English (Native) and Hindi (Conversational)",
   hobbies: "Cricket, playing indie video games, espresso brewing, and digital illustration",
   objective: "To leverage AI engineering expertise to build high-performance, user-centric web applications and microservices in a forward-thinking dev team.",

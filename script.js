@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return "You can reach Md Raghib at:\n- **Email**: kraghib123@gmail.com\n- **Phone**: +91 6289007171\n- **LinkedIn**: linkedin.com/in/md~raghib\n- **GitHub**: github.com/raghib6289";
         }
         if (q.includes("certif")) {
-            return "Raghib's Certifications:\n- **SQL AI Certified Developer – Associate (2026)**\n- **Azure AI Fundamentals (2025)**";
+            return "Raghib's 5 Certifications:\n1. **SQL AI Certified Developer – Associate (2026)**\n2. **Microsoft Certified: Azure AI Fundamentals (2025)**\n3. **Data Analytics Professional Certification**\n4. **Deloitte Consulting Data Analytics Virtual Experience**\n5. **GeeksforGeeks Generative AI & LLM Engineering Specialization**";
         }
 
         return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info!";
