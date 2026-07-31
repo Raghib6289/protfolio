@@ -297,5 +297,135 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info! (You can also ask me to generate images by typing words like 'image', 'picture', or 'draw'!)";
     }
+
+    // Certifications Horizontal Slider Logic
+    const certiTrack = document.getElementById("certi-track");
+    const certiCards = document.querySelectorAll(".certi-card");
+    const prevBtn = document.getElementById("certi-prev-btn");
+    const nextBtn = document.getElementById("certi-next-btn");
+    const togglePlayBtn = document.getElementById("certi-toggle-play");
+    const playStatusSpan = document.getElementById("certi-play-status");
+    const sliderContainer = document.getElementById("certi-slider-container");
+
+    if (certiTrack && certiCards.length > 0) {
+        let currentCertiIndex = 0;
+        let autoSlideInterval = null;
+        let isPlaying = true;
+        const slideDelay = 3500; // 3.5 seconds delay
+
+        function getVisibleCardsCount() {
+            if (window.innerWidth <= 600) return 1;
+            if (window.innerWidth <= 995) return 2;
+            return 3;
+        }
+
+        function getMaxIndex() {
+            const visible = getVisibleCardsCount();
+            return Math.max(0, certiCards.length - visible);
+        }
+
+        function updateSliderPosition() {
+            const maxIndex = getMaxIndex();
+            if (currentCertiIndex > maxIndex) {
+                currentCertiIndex = 0;
+            } else if (currentCertiIndex < 0) {
+                currentCertiIndex = maxIndex;
+            }
+
+            const firstCard = certiCards[0];
+            const cardWidth = firstCard.offsetWidth;
+            const style = window.getComputedStyle(certiTrack);
+            const gap = parseFloat(style.gap) || 25;
+
+            const moveDistance = currentCertiIndex * (cardWidth + gap);
+            certiTrack.style.transform = `translateX(-${moveDistance}px)`;
+        }
+
+        function nextSlide() {
+            const maxIndex = getMaxIndex();
+            if (currentCertiIndex >= maxIndex) {
+                currentCertiIndex = 0;
+            } else {
+                currentCertiIndex++;
+            }
+            updateSliderPosition();
+        }
+
+        function prevSlide() {
+            const maxIndex = getMaxIndex();
+            if (currentCertiIndex <= 0) {
+                currentCertiIndex = maxIndex;
+            } else {
+                currentCertiIndex--;
+            }
+            updateSliderPosition();
+        }
+
+        function startAutoSlide() {
+            if (!autoSlideInterval) {
+                autoSlideInterval = setInterval(nextSlide, slideDelay);
+            }
+            isPlaying = true;
+            if (togglePlayBtn) {
+                togglePlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i> <span id="certi-play-status">Pause</span>';
+            }
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+            isPlaying = false;
+            if (togglePlayBtn) {
+                togglePlayBtn.innerHTML = '<i class="fa-solid fa-play"></i> <span id="certi-play-status">Play</span>';
+            }
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+                nextSlide();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener("click", () => {
+                prevSlide();
+            });
+        }
+
+        if (togglePlayBtn) {
+            togglePlayBtn.addEventListener("click", () => {
+                if (isPlaying) {
+                    stopAutoSlide();
+                } else {
+                    startAutoSlide();
+                }
+            });
+        }
+
+        // Auto pause on hover for easy viewing
+        if (sliderContainer) {
+            sliderContainer.addEventListener("mouseenter", () => {
+                if (isPlaying && autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+            });
+
+            sliderContainer.addEventListener("mouseleave", () => {
+                if (isPlaying && !autoSlideInterval) {
+                    autoSlideInterval = setInterval(nextSlide, slideDelay);
+                }
+            });
+        }
+
+        window.addEventListener("resize", () => {
+            updateSliderPosition();
+        });
+
+        // Initialize Auto-Slide
+        startAutoSlide();
+    }
 });
 

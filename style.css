@@ -556,6 +556,142 @@ span {
     box-shadow: 0 0 15px #b74b4b;
 }
 
+/* Certifications Section */
+.certifications {
+    background: #0f0f0f;
+    padding-bottom: 8rem;
+}
+
+.certi-slider-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.certi-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.certi-control-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.8rem;
+    background: #161616;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 3rem;
+    border: 2px solid rgba(183, 75, 75, 0.3);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.certi-control-btn:hover {
+    background: #b74b4b;
+    color: black;
+    box-shadow: 0 0 15px #b74b4b;
+    border-color: #b74b4b;
+}
+
+.play-pause-btn {
+    background: rgba(183, 75, 75, 0.15);
+    border-color: #b74b4b;
+    color: #b74b4b;
+}
+
+.play-pause-btn:hover {
+    background: #b74b4b;
+    color: black;
+}
+
+.certi-slider-container {
+    overflow: hidden;
+    width: 100%;
+    padding: 1rem 0 2rem;
+    border-radius: 2rem;
+}
+
+.certi-track {
+    display: flex;
+    gap: 2.5rem;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.certi-card {
+    flex: 0 0 calc(33.333% - 1.7rem);
+    min-width: 290px;
+    background: #161616;
+    border: 2px solid rgba(183, 75, 75, 0.2);
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.certi-card:hover {
+    border-color: #b74b4b;
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px rgba(183, 75, 75, 0.4);
+}
+
+.certi-card-header {
+    background: linear-gradient(135deg, rgba(183, 75, 75, 0.25) 0%, rgba(20, 20, 20, 0.95) 100%);
+    padding: 3rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(183, 75, 75, 0.2);
+}
+
+.certi-icon {
+    font-size: 4.5rem;
+    color: #b74b4b;
+    filter: drop-shadow(0 0 10px rgba(183, 75, 75, 0.5));
+}
+
+.pdf-badge {
+    background: rgba(183, 75, 75, 0.2);
+    color: #ff8888;
+    border: 1px solid rgba(183, 75, 75, 0.4);
+    padding: 0.4rem 1rem;
+    border-radius: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.certi-card-body {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.certi-card-body h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.certi-card-body p {
+    font-size: 1.35rem;
+    color: #bbb;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.btn-sm {
+    padding: 0.8rem 2rem;
+    font-size: 1.3rem;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
 /* Contact Section */
 .contact {
     background: #0f0f0f;
