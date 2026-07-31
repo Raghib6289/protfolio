@@ -81,79 +81,6 @@ function findAnswerLocal(query) {
   return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, and contact details!";
 }
 
-const RANDOM_PROMPTS = [
-  "A futuristic cyberpunk city with neon billboards, flying vehicles, and glowing rain puddles, high detail",
-  "A cozy wooden cabin nestled in a snowy mountain pine forest, soft warm light glowing from the windows, starry galaxy sky",
-  "A majestic dragon made of crystals perched on a cliff under a full moon, fantasy illustration",
-  "An astronaut exploring a vibrant alien jungle with bioluminescent plants, surreal sci-fi art"
-];
-
-function getRandomPrompt() {
-  return RANDOM_PROMPTS[Math.floor(Math.random() * RANDOM_PROMPTS.length)];
-}
-
-function extractPrompt(message) {
-  const lower = message.toLowerCase().trim();
-  const prefixes = [
-    'generate an image of ', 'generate image of ', 'generate a photo of ', 'generate photo of ',
-    'show an image of ', 'show me an image of ', 'draw an image of ', 'draw a ', 'draw ',
-    'create an image of ', 'generate ', 'picture of ', 'photo of ', 'image of ', 'visual of '
-  ];
-  let cleaned = lower;
-  for (const prefix of prefixes) {
-    if (cleaned.startsWith(prefix)) {
-      cleaned = cleaned.substring(prefix.length).trim();
-      break;
-    }
-  }
-  return cleaned.length > 0 && cleaned !== 'image' && cleaned !== '/image' ? cleaned : getRandomPrompt();
-}
-
-function buildContextualEnhancedPrompt(prompt) {
-  const cleanPrompt = prompt.trim();
-  const lower = cleanPrompt.toLowerCase();
-  const enhancements = [];
-
-  if (lower.includes('photo') || lower.includes('real') || lower.includes('portrait') || lower.includes('person') || lower.includes('man') || lower.includes('woman') || lower.includes('face') || lower.includes('human')) {
-    enhancements.push('photorealistic 8k photography', 'shot on 35mm lens', 'natural skin texture', 'sharp focus', 'cinematic lighting', 'high resolution');
-  } else if (lower.includes('3d') || lower.includes('render') || lower.includes('cyberpunk') || lower.includes('robot') || lower.includes('city') || lower.includes('sci-fi') || lower.includes('futuristic')) {
-    enhancements.push('detailed 3d render', 'octane render', 'unreal engine 5', 'cinematic ray tracing', 'volumetric lighting', '4k texture');
-  } else if (lower.includes('anime') || lower.includes('illustration') || lower.includes('art') || lower.includes('draw') || lower.includes('paint') || lower.includes('sketch')) {
-    enhancements.push('masterpiece digital illustration', 'intricate fine detail', 'vibrant color grading', 'trending on artstation');
-  } else {
-    enhancements.push('photorealistic high definition', 'hyperrealistic lighting', 'sharp crisp focus', 'masterpiece 8k');
-  }
-
-  return `${cleanPrompt}, ${enhancements.join(', ')}`;
-}
-
-async function generateImagen3Image(prompt, apiKey) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      instances: [{ prompt: prompt }],
-      parameters: {
-        sampleCount: 1,
-        aspectRatio: "1:1",
-        outputOptions: { mimeType: "image/jpeg" }
-      }
-    })
-  });
-
-  if (!response.ok) {
-    const errText = await response.text();
-    throw new Error(`Google Imagen 3 API error (${response.status}): ${errText}`);
-  }
-
-  const data = await response.json();
-  if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
-    return `data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}`;
-  }
-  throw new Error("No image bytes returned from Google Imagen 3 API");
-}
-
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -178,39 +105,7 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: "Invalid message payload" });
   }
 
-  const lowerMessage = message.toLowerCase().trim();
-  const visualKeywords = ['image', 'photo', 'picture', 'pic', 'visual', 'draw', 'paint', 'illustration', 'artwork', 'sketch', 'render', 'wallpaper', 'generate'];
-  const isImageRequest = visualKeywords.some(kw => lowerMessage.includes(kw)) && !lowerMessage.includes('how to');
-
-  if (isImageRequest) {
-    const rawPrompt = extractPrompt(message);
-    const enhancedPrompt = buildContextualEnhancedPrompt(rawPrompt);
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-
-    if (apiKey && apiKey.trim() !== "") {
-      try {
-        const imagenUrl = await generateImagen3Image(enhancedPrompt, apiKey);
-        return res.status(200).json({
-          response: "Here is your photorealistic image generated via **Google Imagen 3 (Gemini Pro)**! 🎨✨",
-          image: imagenUrl
-        });
-      } catch (geminiErr) {
-        console.warn("Google Imagen 3 generation failed, falling back to FLUX.1 Schnell:", geminiErr.message);
-      }
-    }
-
-    try {
-      const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
-      return res.status(200).json({
-        response: "Here is your high-definition image generated with **FLUX.1 Schnell**! 🎨✨",
-        image: imageUrl
-      });
-    } catch (err) {
-      return res.status(500).json({ error: "Failed to generate image" });
-    }
-  }
-
-  // Gemini API
+  // Gemini API for Text Response
   const apiKey = process.env.GEMINI_API_KEY;
   if (apiKey && apiKey.trim() !== "") {
     try {

@@ -214,44 +214,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const data = await response.json();
-                appendMessage(data.response, "bot", data.image);
+                appendMessage(data.response, "bot");
             } else {
                 // Fallback to local heuristic engine
                 const fallbackReply = generateLocalResponse(message);
-                if (typeof fallbackReply === 'object') {
-                    appendMessage(fallbackReply.text, "bot", fallbackReply.image);
-                } else {
-                    appendMessage(fallbackReply, "bot");
-                }
+                appendMessage(fallbackReply, "bot");
             }
         } catch (err) {
             console.log("Server API offline. Using local client fallback AI engine.");
             removeThinkingIndicator(thinkingId);
             const fallbackReply = generateLocalResponse(message);
-            if (typeof fallbackReply === 'object') {
-                appendMessage(fallbackReply.text, "bot", fallbackReply.image);
-            } else {
-                appendMessage(fallbackReply, "bot");
-            }
+            appendMessage(fallbackReply, "bot");
         }
 
         scrollToBottom();
     }
 
-    function appendMessage(text, sender, imageUrl = null) {
+    function appendMessage(text, sender) {
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("chat-message", `${sender}-message`);
 
         let formattedText = text ? formatMarkdown(text) : "";
 
         if (sender === "bot") {
-            let imgHTML = imageUrl ? `<img src="${imageUrl}" alt="Generated Image" class="chat-img-preview">` : "";
             let textHTML = formattedText.trim() ? `<p>${formattedText}</p>` : "";
             msgDiv.innerHTML = `
                 <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
                 <div class="message-content">
                     ${textHTML}
-                    ${imgHTML}
                 </div>
             `;
         } else {
@@ -311,32 +301,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function generateLocalResponse(query) {
         const q = query.toLowerCase().trim();
 
-        // Check for image/visual keywords
-        const visualKeywords = ['image', 'photo', 'picture', 'pic', 'visual', 'draw', 'paint', 'illustration', 'artwork', 'sketch', 'render', 'wallpaper', 'generate'];
-        if (visualKeywords.some(kw => q.includes(kw)) && !q.includes('how to')) {
-            const rawPrompt = q.replace(/generate|image|photo|picture|pic|draw|paint|illustration|artwork|sketch|render|wallpaper|show me|an|a|of/g, '').trim() || 'futuristic cyberpunk city';
-            const cleanPrompt = rawPrompt;
-            const lowerPrompt = cleanPrompt.toLowerCase();
-            const enhancements = [];
-
-            if (lowerPrompt.includes('photo') || lowerPrompt.includes('real') || lowerPrompt.includes('portrait') || lowerPrompt.includes('person') || lowerPrompt.includes('man') || lowerPrompt.includes('woman') || lowerPrompt.includes('face') || lowerPrompt.includes('human')) {
-                enhancements.push('photorealistic 8k photography', 'shot on 35mm lens', 'natural skin texture', 'sharp focus', 'cinematic lighting', 'high resolution');
-            } else if (lowerPrompt.includes('3d') || lowerPrompt.includes('render') || lowerPrompt.includes('cyberpunk') || lowerPrompt.includes('robot') || lowerPrompt.includes('city') || lowerPrompt.includes('sci-fi') || lowerPrompt.includes('futuristic')) {
-                enhancements.push('detailed 3d render', 'octane render', 'unreal engine 5', 'cinematic ray tracing', 'volumetric lighting', '4k texture');
-            } else if (lowerPrompt.includes('anime') || lowerPrompt.includes('illustration') || lowerPrompt.includes('art') || lowerPrompt.includes('draw') || lowerPrompt.includes('paint') || lowerPrompt.includes('sketch')) {
-                enhancements.push('masterpiece digital illustration', 'intricate fine detail', 'vibrant color grading', 'trending on artstation');
-            } else {
-                enhancements.push('photorealistic high definition', 'hyperrealistic lighting', 'sharp crisp focus', 'masterpiece 8k');
-            }
-
-            const enhancedPrompt = `${cleanPrompt}, ${enhancements.join(', ')}`;
-            const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=1024&height=1024&model=flux&enhance=true&nologo=true&seed=${Math.floor(Math.random() * 1000000)}`;
-            return {
-                text: "Here is your high-definition image generated with **FLUX.1 Schnell**! 🎨✨",
-                image: imgUrl
-            };
-        }
-
         if (q.includes("hi") || q.includes("hello") || q.includes("hey")) {
             return "Hi there! 👋 How can I help you regarding **Md Raghib's** background, skills, or portfolio?";
         }
@@ -359,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return "Raghib's Certifications:\n- **SQL AI Certified Developer – Associate (2026)**\n- **Azure AI Fundamentals (2025)**";
         }
 
-        return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info! (You can also ask me to generate images by typing words like 'image', 'picture', or 'draw'!)";
+        return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info!";
     }
 
     // Certifications Continuous Floating Horizontal Slider Logic
