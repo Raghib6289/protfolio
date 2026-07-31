@@ -775,6 +775,8 @@ span {
     border: 2px solid rgba(183, 75, 75, 0.2);
     margin-bottom: 2rem;
     transition: 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .info-card:hover {
@@ -795,14 +797,16 @@ span {
     letter-spacing: 0.1rem;
 }
 
+.info-card span,
 .info-card a {
     font-size: 1.6rem;
     color: white;
-    font-weight: 500;
-    transition: 0.3s;
+    font-weight: 600;
+    transition: 0.3s ease;
 }
 
-.info-card a:hover {
+.info-card:hover span,
+.info-card:hover a {
     color: #b74b4b;
 }
 
