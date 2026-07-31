@@ -241,11 +241,17 @@ span {
     font-weight: 600;
     margin-bottom: 1.5rem;
     min-height: 4.8rem;
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
 }
 
 .typing-text span.typed-text {
     color: #b74b4b;
     font-weight: 700;
+    margin-left: 0.8rem;
+    display: inline-block;
+    vertical-align: baseline;
 }
 
 .typing-text span.cursor {
@@ -253,7 +259,7 @@ span {
     background-color: #b74b4b;
     margin-left: 0.3rem;
     width: 3px;
-    height: 3.2rem;
+    height: 3.4rem;
     vertical-align: middle;
     animation: blink 0.8s infinite;
 }
@@ -767,6 +773,10 @@ span {
 
     .home-content p {
         margin: 0 auto 2.5rem;
+    }
+
+    .typing-text {
+        justify-content: center;
     }
 
     .btn-group {
