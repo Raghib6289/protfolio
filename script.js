@@ -298,20 +298,17 @@ document.addEventListener("DOMContentLoaded", function () {
         return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info! (You can also ask me to generate images by typing words like 'image', 'picture', or 'draw'!)";
     }
 
-    // Certifications Horizontal Slider Logic
+    // Certifications Continuous Floating Horizontal Slider Logic
     const certiTrack = document.getElementById("certi-track");
     const certiCards = document.querySelectorAll(".certi-card");
     const prevBtn = document.getElementById("certi-prev-btn");
     const nextBtn = document.getElementById("certi-next-btn");
-    const togglePlayBtn = document.getElementById("certi-toggle-play");
-    const playStatusSpan = document.getElementById("certi-play-status");
     const sliderContainer = document.getElementById("certi-slider-container");
 
     if (certiTrack && certiCards.length > 0) {
         let currentCertiIndex = 0;
         let autoSlideInterval = null;
-        let isPlaying = true;
-        const slideDelay = 3500; // 3.5 seconds delay
+        const slideDelay = 3000; // 3 seconds continuous float
 
         function getVisibleCardsCount() {
             if (window.innerWidth <= 600) return 1;
@@ -365,20 +362,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!autoSlideInterval) {
                 autoSlideInterval = setInterval(nextSlide, slideDelay);
             }
-            isPlaying = true;
-            if (togglePlayBtn) {
-                togglePlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i> <span id="certi-play-status">Pause</span>';
-            }
         }
 
         function stopAutoSlide() {
             if (autoSlideInterval) {
                 clearInterval(autoSlideInterval);
                 autoSlideInterval = null;
-            }
-            isPlaying = false;
-            if (togglePlayBtn) {
-                togglePlayBtn.innerHTML = '<i class="fa-solid fa-play"></i> <span id="certi-play-status">Play</span>';
             }
         }
 
@@ -394,29 +383,14 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        if (togglePlayBtn) {
-            togglePlayBtn.addEventListener("click", () => {
-                if (isPlaying) {
-                    stopAutoSlide();
-                } else {
-                    startAutoSlide();
-                }
-            });
-        }
-
-        // Auto pause on hover for easy viewing
+        // Auto pause on hover for easy reading
         if (sliderContainer) {
             sliderContainer.addEventListener("mouseenter", () => {
-                if (isPlaying && autoSlideInterval) {
-                    clearInterval(autoSlideInterval);
-                    autoSlideInterval = null;
-                }
+                stopAutoSlide();
             });
 
             sliderContainer.addEventListener("mouseleave", () => {
-                if (isPlaying && !autoSlideInterval) {
-                    autoSlideInterval = setInterval(nextSlide, slideDelay);
-                }
+                startAutoSlide();
             });
         }
 
@@ -424,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
             updateSliderPosition();
         });
 
-        // Initialize Auto-Slide
+        // Initialize Continuous Floating Slider
         startAutoSlide();
     }
 });

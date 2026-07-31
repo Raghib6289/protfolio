@@ -557,6 +557,7 @@ span {
 }
 
 /* Certifications Section */
+/* Certifications Section */
 .certifications {
     background: #0f0f0f;
     padding-bottom: 8rem;
@@ -564,49 +565,44 @@ span {
 
 .certi-slider-wrapper {
     position: relative;
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
+    padding: 0 5.5rem;
 }
 
-.certi-controls {
-    display: flex;
+.certi-side-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    background: rgba(22, 22, 22, 0.9);
+    border: 2px solid #b74b4b;
+    color: #b74b4b;
+    font-size: 1.8rem;
+    cursor: pointer;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-}
-
-.certi-control-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem 1.8rem;
-    background: #161616;
-    color: white;
-    font-size: 1.4rem;
-    font-weight: 600;
-    border-radius: 3rem;
-    border: 2px solid rgba(183, 75, 75, 0.3);
-    cursor: pointer;
     transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
 }
 
-.certi-control-btn:hover {
+.certi-side-btn:hover {
     background: #b74b4b;
     color: black;
-    box-shadow: 0 0 15px #b74b4b;
-    border-color: #b74b4b;
+    box-shadow: 0 0 25px #b74b4b;
+    transform: translateY(-50%) scale(1.1);
 }
 
-.play-pause-btn {
-    background: rgba(183, 75, 75, 0.15);
-    border-color: #b74b4b;
-    color: #b74b4b;
+.certi-prev-side {
+    left: 0;
 }
 
-.play-pause-btn:hover {
-    background: #b74b4b;
-    color: black;
+.certi-next-side {
+    right: 0;
 }
 
 .certi-slider-container {
@@ -641,13 +637,61 @@ span {
     box-shadow: 0 0 25px rgba(183, 75, 75, 0.4);
 }
 
-.certi-card-header {
-    background: linear-gradient(135deg, rgba(183, 75, 75, 0.25) 0%, rgba(20, 20, 20, 0.95) 100%);
-    padding: 3rem 2rem;
-    display: flex;
-    justify-content: space-between;
+.certi-preview-frame {
+    background: linear-gradient(135deg, rgba(183, 75, 75, 0.2) 0%, rgba(15, 15, 15, 0.95) 100%);
+    padding: 2.5rem 1.8rem;
+    border-bottom: 2px solid rgba(183, 75, 75, 0.3);
+    position: relative;
+}
+
+.certi-frame-border {
+    border: 2px dashed rgba(183, 75, 75, 0.4);
+    border-radius: 1.2rem;
+    padding: 2rem 1.2rem;
+    text-align: center;
+    position: relative;
+    background: rgba(10, 10, 10, 0.65);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.certi-seal {
+    width: 4.4rem;
+    height: 4.4rem;
+    background: linear-gradient(135deg, #b74b4b 0%, #701d1d 100%);
+    color: #ffd700;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    border-bottom: 2px solid rgba(183, 75, 75, 0.2);
+    font-size: 2.2rem;
+    box-shadow: 0 0 15px rgba(183, 75, 75, 0.6);
+    margin-bottom: 1rem;
+}
+
+.certi-preview-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.2rem;
+    color: #b74b4b;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.certi-preview-sub {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+    margin: 0.6rem 0;
+}
+
+.certi-ribbon {
+    display: inline-block;
+    background: rgba(183, 75, 75, 0.2);
+    color: #ffaaaa;
+    border: 1px solid rgba(183, 75, 75, 0.4);
+    padding: 0.3rem 1.2rem;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .certi-icon {

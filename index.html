@@ -255,21 +255,19 @@
         <h2 class="heading">My <span>Certifications</span></h2>
 
         <div class="certi-slider-wrapper">
-            <div class="certi-controls">
-                <button id="certi-prev-btn" class="certi-control-btn" aria-label="Previous Certificate" title="Previous"><i class="fa-solid fa-chevron-left"></i></button>
-                <button id="certi-toggle-play" class="certi-control-btn play-pause-btn" aria-label="Toggle Auto-Slide" title="Toggle Auto-Slide (3.5s delay)">
-                    <i class="fa-solid fa-pause"></i> <span id="certi-play-status">Pause</span>
-                </button>
-                <button id="certi-next-btn" class="certi-control-btn" aria-label="Next Certificate" title="Next"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
+            <button id="certi-prev-btn" class="certi-side-btn certi-prev-side" aria-label="Previous Certificate" title="Previous"><i class="fa-solid fa-chevron-left"></i></button>
 
             <div class="certi-slider-container" id="certi-slider-container">
                 <div class="certi-track" id="certi-track">
                     <!-- Certificate 1 -->
                     <div class="certi-card">
-                        <div class="certi-card-header">
-                            <i class="fa-solid fa-database certi-icon"></i>
-                            <span class="pdf-badge"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                        <div class="certi-preview-frame">
+                            <div class="certi-frame-border">
+                                <div class="certi-seal"><i class="fa-solid fa-award"></i></div>
+                                <div class="certi-preview-title">CERTIFICATE OF ACHIEVEMENT</div>
+                                <div class="certi-preview-sub">SQL AI Certified Developer</div>
+                                <div class="certi-ribbon"><i class="fa-solid fa-file-pdf"></i> ASSOCIATE LEVEL</div>
+                            </div>
                         </div>
                         <div class="certi-card-body">
                             <h3>Associate Level SQL</h3>
@@ -280,9 +278,13 @@
 
                     <!-- Certificate 2 -->
                     <div class="certi-card">
-                        <div class="certi-card-header">
-                            <i class="fa-brands fa-microsoft certi-icon"></i>
-                            <span class="pdf-badge"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                        <div class="certi-preview-frame">
+                            <div class="certi-frame-border">
+                                <div class="certi-seal"><i class="fa-brands fa-microsoft"></i></div>
+                                <div class="certi-preview-title">MICROSOFT CERTIFIED</div>
+                                <div class="certi-preview-sub">Azure AI Fundamentals</div>
+                                <div class="certi-ribbon"><i class="fa-solid fa-file-pdf"></i> AI-900 CERTIFIED</div>
+                            </div>
                         </div>
                         <div class="certi-card-body">
                             <h3>Azure AI Fundamentals</h3>
@@ -293,9 +295,13 @@
 
                     <!-- Certificate 3 -->
                     <div class="certi-card">
-                        <div class="certi-card-header">
-                            <i class="fa-solid fa-chart-pie certi-icon"></i>
-                            <span class="pdf-badge"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                        <div class="certi-preview-frame">
+                            <div class="certi-frame-border">
+                                <div class="certi-seal"><i class="fa-solid fa-chart-pie"></i></div>
+                                <div class="certi-preview-title">CERTIFICATE OF COMPLETION</div>
+                                <div class="certi-preview-sub">Data Analytics Professional</div>
+                                <div class="certi-ribbon"><i class="fa-solid fa-file-pdf"></i> DATA SCIENCE</div>
+                            </div>
                         </div>
                         <div class="certi-card-body">
                             <h3>Data Analytics Certification</h3>
@@ -306,9 +312,13 @@
 
                     <!-- Certificate 4 -->
                     <div class="certi-card">
-                        <div class="certi-card-header">
-                            <i class="fa-solid fa-building-columns certi-icon"></i>
-                            <span class="pdf-badge"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                        <div class="certi-preview-frame">
+                            <div class="certi-frame-border">
+                                <div class="certi-seal"><i class="fa-solid fa-building-columns"></i></div>
+                                <div class="certi-preview-title">DELOITTE CONSULTING</div>
+                                <div class="certi-preview-sub">Data Analytics Virtual Experience</div>
+                                <div class="certi-ribbon"><i class="fa-solid fa-file-pdf"></i> CONSULTING AI</div>
+                            </div>
                         </div>
                         <div class="certi-card-body">
                             <h3>Deloitte Data Analytics</h3>
@@ -319,9 +329,13 @@
 
                     <!-- Certificate 5 -->
                     <div class="certi-card">
-                        <div class="certi-card-header">
-                            <i class="fa-solid fa-brain certi-icon"></i>
-                            <span class="pdf-badge"><i class="fa-solid fa-file-pdf"></i> PDF</span>
+                        <div class="certi-preview-frame">
+                            <div class="certi-frame-border">
+                                <div class="certi-seal"><i class="fa-solid fa-brain"></i></div>
+                                <div class="certi-preview-title">GEEKSFORGEEKS SPECIALIZATION</div>
+                                <div class="certi-preview-sub">Generative AI &amp; LLM Engineering</div>
+                                <div class="certi-ribbon"><i class="fa-solid fa-file-pdf"></i> GEN AI CERTIFIED</div>
+                            </div>
                         </div>
                         <div class="certi-card-body">
                             <h3>GeeksforGeeks Generative AI</h3>
@@ -331,6 +345,8 @@
                     </div>
                 </div>
             </div>
+
+            <button id="certi-next-btn" class="certi-side-btn certi-next-side" aria-label="Next Certificate" title="Next"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
     </section>
 
