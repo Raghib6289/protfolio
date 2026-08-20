@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sender === "bot") {
             let textHTML = formattedText.trim() ? `<p>${formattedText}</p>` : "";
             msgDiv.innerHTML = `
-                <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
+                <img src="aurora_avatar.png" alt="AI Avatar" class="bot-avatar-img">
                 <div class="message-content">
                     ${textHTML}
                 </div>
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
         thinkingDiv.id = id;
         thinkingDiv.classList.add("chat-message", "bot-message");
         thinkingDiv.innerHTML = `
-            <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
+            <img src="aurora_avatar.png" alt="AI Avatar" class="bot-avatar-img">
             <div class="message-content">
                 <p><em>Thinking...</em></p>
             </div>

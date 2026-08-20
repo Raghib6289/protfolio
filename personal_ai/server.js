@@ -48,7 +48,7 @@ CRITICAL INSTRUCTIONS:
 5. If the user greets you (e.g. "hi", "hello"), you may greet them back and invite them to ask about Md Raghib.`;
 
     geminiModel = genAI.getGenerativeModel({
-      model: "gemini-3.1-flash-lite",
+      model: "gemini-1.5-flash",
       systemInstruction: systemInstruction
     });
     console.log("Google Gemini API integration initialized successfully (gemini-1.5-flash).");
