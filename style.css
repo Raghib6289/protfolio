@@ -1806,11 +1806,9 @@ span {
         padding-left: 2rem;
     }
 
+    .footer-iconTop,
     .footer-iconTop a {
-        bottom: 90px;
-        right: 25px;
-        width: 4.4rem;
-        height: 4.4rem;
+        display: none !important;
     }
 
     .ai-assistant-wrapper {
