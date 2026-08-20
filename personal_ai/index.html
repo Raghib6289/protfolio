@@ -104,6 +104,8 @@
       position: relative;
       width: 52px;
       height: 52px;
+      animation: floatAvatar 4s ease-in-out infinite;
+      perspective: 600px;
     }
 
     .bot-avatar {
@@ -112,8 +114,11 @@
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 0 18px rgba(99, 200, 241, 0.45), 0 0 40px rgba(139, 92, 246, 0.2);
-      animation: floatAvatar 4s ease-in-out infinite;
       background: transparent;
+      transition: transform 0.12s cubic-bezier(0.1, 0.8, 0.2, 1), box-shadow 0.2s ease, filter 0.2s ease;
+      will-change: transform, box-shadow;
+      transform-style: preserve-3d;
+      cursor: pointer;
     }
 
     @keyframes floatAvatar {
@@ -210,7 +215,9 @@
       height: 36px;
       flex-shrink: 0;
       border-radius: 50%;
-      overflow: hidden;
+      overflow: visible;
+      animation: floatAvatar 4s ease-in-out infinite;
+      perspective: 500px;
     }
 
     .msg-avatar img {
@@ -219,7 +226,9 @@
       object-fit: cover;
       border-radius: 50%;
       box-shadow: 0 0 10px rgba(99, 200, 241, 0.3);
-      animation: floatAvatar 4s ease-in-out infinite;
+      transition: transform 0.12s cubic-bezier(0.1, 0.8, 0.2, 1), box-shadow 0.2s ease;
+      will-change: transform, box-shadow;
+      transform-style: preserve-3d;
     }
 
     .msg-avatar svg {
@@ -655,6 +664,57 @@
     function askPreset(question) {
       userInput.value = question;
       sendMessage();
+    }
+
+    // Mouse Movement Interactive Aurora Avatar Engine
+    function initInteractiveAuroraAvatar() {
+      document.addEventListener('mousemove', (e) => {
+        const avatars = document.querySelectorAll('.bot-avatar, .msg-avatar img');
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        avatars.forEach(avatar => {
+          const rect = avatar.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) return;
+
+          const avatarCenterX = rect.left + rect.width / 2;
+          const avatarCenterY = rect.top + rect.height / 2;
+
+          const deltaX = mouseX - avatarCenterX;
+          const deltaY = mouseY - avatarCenterY;
+          const distance = Math.hypot(deltaX, deltaY);
+
+          // Calculate normalized vector relative to center
+          const normX = deltaX / (window.innerWidth / 2);
+          const normY = deltaY / (window.innerHeight / 2);
+
+          // Calculate 3D rotation angle
+          const tiltX = Math.max(-25, Math.min(25, -normY * 25));
+          const tiltY = Math.max(-25, Math.min(25, normX * 25));
+
+          // Translation shift towards cursor direction
+          const transX = Math.max(-10, Math.min(10, normX * 10));
+          const transY = Math.max(-10, Math.min(10, normY * 10));
+
+          // Proximity boost when cursor is close
+          const isNear = distance < 200;
+          const scale = isNear ? 1.18 : 1.0;
+
+          const shadowX = -normX * 14;
+          const shadowY = -normY * 14;
+          const cyanGlow = isNear ? 0.75 : 0.45;
+          const violetGlow = isNear ? 0.55 : 0.25;
+
+          avatar.style.transform = `perspective(400px) rotateX(${tiltX.toFixed(1)}deg) rotateY(${tiltY.toFixed(1)}deg) translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 12px) scale(${scale})`;
+          avatar.style.boxShadow = `${shadowX.toFixed(1)}px ${shadowY.toFixed(1)}px 22px rgba(99, 200, 241, ${cyanGlow}), 0 0 35px rgba(139, 92, 246, ${violetGlow})`;
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInteractiveAuroraAvatar);
+    } else {
+      initInteractiveAuroraAvatar();
     }
   </script>
 </body>
