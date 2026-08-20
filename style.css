@@ -1371,7 +1371,289 @@ span {
     transform: translateY(-4px);
 }
 
-/* Responsive Breakpoints */
+/* Floating AI Assistant Widget Styles */
+.ai-assistant-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.ai-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 2.2rem;
+    background: linear-gradient(135deg, #b74b4b 0%, #802626 100%);
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 4rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 25px rgba(183, 75, 75, 0.6);
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ai-toggle-btn span {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.08rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+.ai-toggle-btn i {
+    font-size: 2rem;
+    animation: pulseRobot 2s infinite;
+}
+
+@keyframes pulseRobot {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.ai-toggle-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 35px #b74b4b;
+}
+
+.ai-chat-window {
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+    width: 380px;
+    height: 520px;
+    max-width: calc(100vw - 30px);
+    max-height: calc(100vh - 100px);
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid rgba(183, 75, 75, 0.4);
+    border-radius: 2rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(183, 75, 75, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.85) translateY(20px);
+    transform-origin: bottom right;
+    transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ai-chat-window.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+}
+
+.ai-chat-header {
+    background: linear-gradient(135deg, rgba(183, 75, 75, 0.3) 0%, rgba(20, 20, 20, 0.95) 100%);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(183, 75, 75, 0.3);
+}
+
+.ai-chat-title {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.ai-chat-title i {
+    font-size: 2.4rem;
+    color: #b74b4b;
+}
+
+.ai-chat-title h4 {
+    font-size: 1.6rem;
+    color: white;
+    font-weight: 600;
+    margin: 0;
+}
+
+.status-dot {
+    font-size: 1.2rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-dot .dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.ai-close-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ai-close-btn:hover {
+    color: #b74b4b;
+    transform: scale(1.1);
+}
+
+.ai-chat-body {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    scroll-behavior: smooth;
+    background: transparent;
+}
+
+.ai-chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-chat-body::-webkit-scrollbar-thumb {
+    background: rgba(183, 75, 75, 0.4);
+    border-radius: 3px;
+}
+
+.chat-message {
+    display: flex;
+    gap: 1rem;
+    max-width: 88%;
+    animation: fadeInMsg 0.3s ease;
+}
+
+@keyframes fadeInMsg {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-message.bot-message {
+    align-self: flex-start;
+}
+
+.chat-message.user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.bot-icon {
+    font-size: 2rem;
+    color: #b74b4b;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+
+.message-content {
+    background: #222222;
+    padding: 1.2rem 1.6rem;
+    border-radius: 1.5rem;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #eee;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-message .message-content {
+    background: #b74b4b;
+    color: #ffffff;
+    font-weight: 500;
+    border-bottom-right-radius: 0.3rem;
+}
+
+.bot-message .message-content {
+    border-bottom-left-radius: 0.3rem;
+    border: 1px solid rgba(183, 75, 75, 0.3);
+    background: #1a1a1a;
+    color: #eeeeee;
+}
+
+.chat-img-preview {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #b74b4b;
+}
+
+.quick-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.suggestion-btn {
+    background: rgba(183, 75, 75, 0.15);
+    border: 1px solid rgba(183, 75, 75, 0.4);
+    color: #ffd1d1;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: 0.25s ease;
+    outline: none;
+}
+
+.suggestion-btn:hover {
+    background: #b74b4b;
+    color: #000000;
+    box-shadow: 0 0 10px #b74b4b;
+}
+
+.ai-chat-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: #121212;
+    border-top: 1px solid rgba(183, 75, 75, 0.3);
+}
+
+.ai-chat-footer input {
+    flex: 1;
+    background: #1a1a1a;
+    border: 1px solid rgba(183, 75, 75, 0.3);
+    padding: 1rem 1.4rem;
+    border-radius: 3rem;
+    color: white;
+    font-size: 1.35rem;
+    outline: none;
+}
+
+.ai-chat-footer input:focus {
+    border-color: #b74b4b;
+}
+
+.ai-chat-footer button {
+    width: 4rem;
+    height: 4rem;
+    background: #b74b4b;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-chat-footer button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px #b74b4b;
+}
+
 /* Responsive Breakpoints & Mobile Optimization */
 @media (max-width: 1200px) {
     html {
