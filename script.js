@@ -1,12 +1,24 @@
-// Mobile Navbar Toggle
+// Mobile Navbar Toggle & Glassmorphic Backdrop
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('nav');
+let navOverlay = document.querySelector('#nav-overlay');
+
+function closeMobileMenu() {
+    if (menuIcon) menuIcon.classList.remove('fa-xmark');
+    if (navbar) navbar.classList.remove('active');
+    if (navOverlay) navOverlay.classList.remove('active');
+}
 
 if (menuIcon && navbar) {
     menuIcon.onclick = () => {
         menuIcon.classList.toggle('fa-xmark');
         navbar.classList.toggle('active');
+        if (navOverlay) navOverlay.classList.toggle('active');
     };
+}
+
+if (navOverlay) {
+    navOverlay.onclick = closeMobileMenu;
 }
 
 // Scroll Sections Active Link & Sticky Navbar
@@ -37,13 +49,12 @@ window.onscroll = () => {
     if (header) {
         header.classList.toggle('sticky', window.scrollY > 100);
     }
-
-    // Close mobile navbar on nav link click
-    if (menuIcon && navbar) {
-        menuIcon.classList.remove('fa-xmark');
-        navbar.classList.remove('active');
-    }
 };
+
+// Close mobile navbar on any nav link click
+navLinks.forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+});
 
 // Dynamic Typing Effect
 const typedTextSpan = document.querySelector(".typed-text");

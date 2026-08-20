@@ -96,6 +96,31 @@ nav a.active {
     border-bottom: 3px solid #b74b4b;
 }
 
+nav a i {
+    display: none;
+}
+
+/* Mobile Navigation Backdrop Overlay */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 #menu-icon {
     font-size: 3.2rem;
     color: #b74b4b;
@@ -1681,21 +1706,38 @@ span {
 
     #menu-icon {
         display: block;
+        font-size: 3rem;
+        color: white;
+        z-index: 1001;
+        transition: 0.3s ease;
+    }
+
+    #menu-icon.fa-xmark {
+        color: #b74b4b;
+        transform: rotate(180deg);
     }
 
     nav {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         right: -100%;
-        width: 280px;
-        padding: 2rem 3rem;
-        background: rgba(18, 18, 18, 0.98);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border-left: 2px solid #b74b4b;
-        border-bottom: 2px solid #b74b4b;
-        border-bottom-left-radius: 2rem;
-        transition: 0.4s ease;
+        width: 320px;
+        max-width: 85vw;
+        height: 100vh;
+        padding: 9rem 2rem 4rem 2rem;
+        background: linear-gradient(180deg, rgba(20, 15, 15, 0.98) 0%, rgba(10, 8, 8, 0.98) 100%);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-left: 2px solid rgba(183, 75, 75, 0.4);
+        box-shadow: -15px 0 45px rgba(0, 0, 0, 0.95), inset 1px 0 1px rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0.6rem;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
+        overflow-y: auto;
+        border-bottom-left-radius: 2.5rem;
     }
 
     nav.active {
@@ -1703,9 +1745,46 @@ span {
     }
 
     nav a {
-        display: block;
-        font-size: 2rem;
-        margin: 2.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: #ddd;
+        padding: 1.2rem 1.8rem;
+        border-radius: 1.2rem;
+        border-left: 3px solid transparent;
+        border-bottom: none;
+        margin: 0;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        text-decoration: none;
+    }
+
+    nav a i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        color: #b74b4b;
+        width: 2.4rem;
+        height: 2.4rem;
+        transition: 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+        color: #ffffff;
+        background: linear-gradient(135deg, rgba(183, 75, 75, 0.25) 0%, rgba(183, 75, 75, 0.05) 100%);
+        border-left-color: #b74b4b;
+        border-bottom: none;
+        box-shadow: 0 4px 15px rgba(183, 75, 75, 0.2);
+        transform: translateX(6px);
+    }
+
+    nav a:hover i,
+    nav a.active i {
+        color: #ff6b6b;
+        transform: scale(1.15);
     }
 
     section {
