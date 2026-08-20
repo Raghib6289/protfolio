@@ -1165,7 +1165,8 @@ span {
 .info-card {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: flex-start;
+    gap: 2.2rem;
     background: #161616;
     padding: 2rem 2.5rem;
     border-radius: 1.5rem;
@@ -1174,6 +1175,14 @@ span {
     transition: 0.3s ease;
     text-decoration: none;
     cursor: pointer;
+    text-align: left;
+}
+
+.info-card div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .info-card:hover {
@@ -1185,6 +1194,7 @@ span {
 .info-card i {
     font-size: 2.8rem;
     color: #b74b4b;
+    flex-shrink: 0;
 }
 
 .info-card h4 {
@@ -1192,6 +1202,8 @@ span {
     color: #aaa;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
+    margin: 0 0 0.3rem 0;
+    text-align: left;
 }
 
 .info-card span,
@@ -1200,6 +1212,7 @@ span {
     color: white;
     font-weight: 600;
     transition: 0.3s ease;
+    text-align: left;
 }
 
 .info-card:hover span,
@@ -1804,6 +1817,19 @@ span {
 
     .info-card {
         width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 1.8rem 2.2rem;
+        gap: 2rem;
+    }
+
+    .info-card div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
     }
 
     .contact-torch-card.torch-card.card {
