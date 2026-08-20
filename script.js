@@ -380,17 +380,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentCertiIndex = maxIndex;
             }
 
-            const visible = getVisibleCardsCount();
-            if (visible === 1) {
-                certiTrack.style.transform = `translateX(-${currentCertiIndex * 100}%)`;
-            } else {
-                const firstCard = certiCards[0];
-                const cardWidth = firstCard.offsetWidth;
-                const style = window.getComputedStyle(certiTrack);
-                const gap = parseFloat(style.gap) || 25;
-                const moveDistance = currentCertiIndex * (cardWidth + gap);
-                certiTrack.style.transform = `translateX(-${moveDistance}px)`;
-            }
+            const firstCard = certiCards[0];
+            if (!firstCard) return;
+            const cardWidth = firstCard.offsetWidth;
+            const style = window.getComputedStyle(certiTrack);
+            const gap = parseFloat(style.gap) || 0;
+            const moveDistance = currentCertiIndex * (cardWidth + gap);
+            certiTrack.style.transform = `translateX(-${moveDistance}px)`;
         }
 
         function nextSlide() {

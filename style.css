@@ -805,8 +805,9 @@ span {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	transition: all 0.4s ease-in-out, transform 0.4s ease-out;
+	transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 	overflow: hidden;
+	transform: translateZ(0);
 }
 
 .contact-torch-card.torch-card.card::before {
@@ -846,7 +847,7 @@ span {
 		calc(100% - var(--ax)) var(--ax),
 		var(--ax) var(--ax)
 	);
-	transition: all 0.4s ease-in-out;
+	transition: all 0.3s ease;
 	pointer-events: none;
 }
 
@@ -866,6 +867,7 @@ span {
 	transform-style: preserve-3d;
 	perspective: 400px;
 	pointer-events: none;
+	transform: translateZ(0);
 }
 
 .contact-torch-card .slit {
@@ -880,7 +882,8 @@ span {
 	transform: rotateX(-76deg);
 	background: #121212;
 	box-shadow: 0 0 4px 0 #fff0;
-	transition: all 0.4s ease-in-out;
+	transition: background 0.3s ease, box-shadow 0.3s ease;
+	will-change: background, box-shadow;
 }
 
 .contact-torch-card .lumen {
@@ -895,7 +898,9 @@ span {
 	pointer-events: none;
 	perspective: 400px;
 	opacity: 0;
-	transition: opacity 0.4s ease-in-out;
+	transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: opacity;
+	transform: translateZ(0);
 }
 
 .contact-torch-card .lumen .min {
@@ -918,6 +923,15 @@ span {
 	background: linear-gradient(#fff0, rgba(255, 255, 255, 0.6));
 	position: absolute;
 	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 8rem;
+	margin: auto;
+	transform: rotateX(-42deg);
+	filter: blur(1.5rem);
+	opacity: 0.8;
+	border-radius: 100% 100% 0 0;
+}
 	right: 0;
 	top: 0;
 	bottom: 8rem;
@@ -1982,13 +1996,38 @@ span {
     }
 
     .certi-slider-wrapper {
-        padding: 0 3.5rem;
+        padding: 0 4rem;
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .certi-slider-container {
+        width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .certi-track {
+        display: flex;
+        gap: 2rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .certi-side-btn {
         width: 3.6rem;
         height: 3.6rem;
         font-size: 1.3rem;
+        z-index: 10;
+    }
+
+    .certi-prev-side {
+        left: 0;
+    }
+
+    .certi-next-side {
+        right: 0;
     }
 
     .certi-card {
@@ -1996,6 +2035,20 @@ span {
         width: 100%;
         min-width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
+        border-radius: 1.8rem;
+    }
+
+    .certi-preview-frame {
+        padding: 2rem 1.2rem;
+    }
+
+    .certi-frame-border {
+        padding: 1.5rem 1rem;
+    }
+
+    .certi-preview-sub {
+        font-size: 1.35rem;
     }
 
     .form-footer-action {
