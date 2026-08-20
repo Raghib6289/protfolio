@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sender === "bot") {
             let textHTML = formattedText.trim() ? `<p>${formattedText}</p>` : "";
             msgDiv.innerHTML = `
-                <img src="aurora_avatar.png" alt="AI Avatar" class="bot-avatar-img">
+                <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
                 <div class="message-content">
                     ${textHTML}
                 </div>
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
         thinkingDiv.id = id;
         thinkingDiv.classList.add("chat-message", "bot-message");
         thinkingDiv.innerHTML = `
-            <img src="aurora_avatar.png" alt="AI Avatar" class="bot-avatar-img">
+            <i class="fa-solid fa-wand-magic-sparkles bot-icon"></i>
             <div class="message-content">
                 <p><em>Thinking...</em></p>
             </div>
@@ -433,48 +433,5 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialize Continuous Floating Slider
         startAutoSlide();
     }
-
-    // Mouse Movement Interactive Aurora Avatar Engine
-    function initInteractiveAuroraAvatar() {
-        document.addEventListener('mousemove', (e) => {
-            const avatars = document.querySelectorAll('.ai-toggle-avatar, .ai-header-avatar, .bot-avatar-img');
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-
-            avatars.forEach(avatar => {
-                const rect = avatar.getBoundingClientRect();
-                if (rect.width === 0 || rect.height === 0) return;
-
-                const avatarCenterX = rect.left + rect.width / 2;
-                const avatarCenterY = rect.top + rect.height / 2;
-
-                const deltaX = mouseX - avatarCenterX;
-                const deltaY = mouseY - avatarCenterY;
-                const distance = Math.hypot(deltaX, deltaY);
-
-                const normX = deltaX / (window.innerWidth / 2);
-                const normY = deltaY / (window.innerHeight / 2);
-
-                const tiltX = Math.max(-25, Math.min(25, -normY * 25));
-                const tiltY = Math.max(-25, Math.min(25, normX * 25));
-
-                const transX = Math.max(-10, Math.min(10, normX * 10));
-                const transY = Math.max(-10, Math.min(10, normY * 10));
-
-                const isNear = distance < 200;
-                const scale = isNear ? 1.18 : 1.0;
-
-                const shadowX = -normX * 14;
-                const shadowY = -normY * 14;
-                const cyanGlow = isNear ? 0.75 : 0.45;
-                const violetGlow = isNear ? 0.55 : 0.25;
-
-                avatar.style.transform = `perspective(400px) rotateX(${tiltX.toFixed(1)}deg) rotateY(${tiltY.toFixed(1)}deg) translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 12px) scale(${scale})`;
-                avatar.style.boxShadow = `${shadowX.toFixed(1)}px ${shadowY.toFixed(1)}px 22px rgba(99, 200, 241, ${cyanGlow}), 0 0 35px rgba(139, 92, 246, ${violetGlow})`;
-            });
-        });
-    }
-
-    initInteractiveAuroraAvatar();
 });
 

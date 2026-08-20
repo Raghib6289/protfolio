@@ -102,29 +102,15 @@
 
     .avatar-wrapper {
       position: relative;
-      width: 52px;
-      height: 52px;
-      animation: floatAvatar 4s ease-in-out infinite;
-      perspective: 600px;
+      width: 44px;
+      height: 44px;
     }
 
     .bot-avatar {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 18px rgba(99, 200, 241, 0.45), 0 0 40px rgba(139, 92, 246, 0.2);
-      background: transparent;
-      transition: transform 0.12s cubic-bezier(0.1, 0.8, 0.2, 1), box-shadow 0.2s ease, filter 0.2s ease;
-      will-change: transform, box-shadow;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    @keyframes floatAvatar {
-      0%   { transform: translateY(0px); }
-      50%  { transform: translateY(-5px); }
-      100% { transform: translateY(0px); }
+      border-radius: 12px;
+      box-shadow: var(--accent-glow);
     }
 
     .status-dot {
@@ -211,24 +197,9 @@
     }
 
     .msg-avatar {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       flex-shrink: 0;
-      border-radius: 50%;
-      overflow: visible;
-      animation: floatAvatar 4s ease-in-out infinite;
-      perspective: 500px;
-    }
-
-    .msg-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(99, 200, 241, 0.3);
-      transition: transform 0.12s cubic-bezier(0.1, 0.8, 0.2, 1), box-shadow 0.2s ease;
-      will-change: transform, box-shadow;
-      transform-style: preserve-3d;
     }
 
     .msg-avatar svg {
@@ -501,7 +472,18 @@
     <header class="chat-header">
       <div class="bot-info">
         <div class="avatar-wrapper">
-          <img class="bot-avatar" src="aurora_avatar.png" alt="AI Avatar">
+          <svg class="bot-avatar" width="44" height="44" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="12" fill="url(#bot-grad)"/>
+            <path d="M20 9C15.03 9 11 13.03 11 18C11 20.31 11.88 22.42 13.31 24.03C13.74 24.51 14 25.13 14 25.78V28C14 29.1 14.9 30 16 30H24C25.1 30 26 29.1 26 28V25.78C26 25.13 26.26 24.51 26.69 24.03C28.12 22.42 29 20.31 29 18C29 13.03 24.97 9 20 9Z" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 17H17.01M23 17H23.01" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+            <path d="M17 21.5C18 22.5 22 22.5 23 21.5" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="bot-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
           <div class="status-dot"></div>
         </div>
         <div class="bot-details">
@@ -515,7 +497,18 @@
     <main class="chat-messages" id="chatMessages">
       <div class="message bot">
         <div class="msg-avatar">
-          <img src="aurora_avatar.png" alt="AI Avatar">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="url(#bot-grad-sm)"/>
+            <path d="M20 9C15.03 9 11 13.03 11 18C11 20.31 11.88 22.42 13.31 24.03C13.74 24.51 14 25.13 14 25.78V28C14 29.1 14.9 30 16 30H24C25.1 30 26 29.1 26 28V25.78C26 25.13 26.26 24.51 26.69 24.03C28.12 22.42 29 20.31 29 18C29 13.03 24.97 9 20 9Z" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 17H17.01M23 17H23.01" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+            <path d="M17 21.5C18 22.5 22 22.5 23 21.5" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="bot-grad-sm" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
         <div class="msg-bubble">
           Hi! 👋 I am Md Raghib's AI chatbot. Ask me about my skills, projects, work experience, education, or contact details, and I'll do my best to help!
@@ -587,10 +580,22 @@
 
       let avatarSvg = '';
       if (sender === 'bot') {
-        avatarSvg = `<img src="aurora_avatar.png" alt="AI Avatar">`;
+        avatarSvg = `
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="url(#b-grad-${Date.now()})"/>
+            <path d="M20 9C15.03 9 11 13.03 11 18C11 20.31 11.88 22.42 13.31 24.03C13.74 24.51 14 25.13 14 25.78V28C14 29.1 14.9 30 16 30H24C25.1 30 26 29.1 26 28V25.78C26 25.13 26.26 24.51 26.69 24.03C28.12 22.42 29 20.31 29 18C29 13.03 24.97 9 20 9Z" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17 17H17.01M23 17H23.01" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+            <path d="M17 21.5C18 22.5 22 22.5 23 21.5" stroke="#f8fafc" stroke-width="2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="b-grad-${Date.now()}" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1"/>
+                <stop offset="1" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>`;
       } else {
         avatarSvg = `
-          <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="20" fill="url(#u-grad-${Date.now()})"/>
             <path d="M20 20C23.3137 20 26 17.3137 26 14C26 10.6863 23.3137 8 20 8C16.6863 8 14 10.6863 14 14C14 17.3137 16.6863 20 20 20Z" stroke="#f8fafc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M10 30C10 25.5817 14.4772 22 20 22C25.5228 22 30 25.5817 30 30" stroke="#f8fafc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -664,57 +669,6 @@
     function askPreset(question) {
       userInput.value = question;
       sendMessage();
-    }
-
-    // Mouse Movement Interactive Aurora Avatar Engine
-    function initInteractiveAuroraAvatar() {
-      document.addEventListener('mousemove', (e) => {
-        const avatars = document.querySelectorAll('.bot-avatar, .msg-avatar img');
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-        avatars.forEach(avatar => {
-          const rect = avatar.getBoundingClientRect();
-          if (rect.width === 0 || rect.height === 0) return;
-
-          const avatarCenterX = rect.left + rect.width / 2;
-          const avatarCenterY = rect.top + rect.height / 2;
-
-          const deltaX = mouseX - avatarCenterX;
-          const deltaY = mouseY - avatarCenterY;
-          const distance = Math.hypot(deltaX, deltaY);
-
-          // Calculate normalized vector relative to center
-          const normX = deltaX / (window.innerWidth / 2);
-          const normY = deltaY / (window.innerHeight / 2);
-
-          // Calculate 3D rotation angle
-          const tiltX = Math.max(-25, Math.min(25, -normY * 25));
-          const tiltY = Math.max(-25, Math.min(25, normX * 25));
-
-          // Translation shift towards cursor direction
-          const transX = Math.max(-10, Math.min(10, normX * 10));
-          const transY = Math.max(-10, Math.min(10, normY * 10));
-
-          // Proximity boost when cursor is close
-          const isNear = distance < 200;
-          const scale = isNear ? 1.18 : 1.0;
-
-          const shadowX = -normX * 14;
-          const shadowY = -normY * 14;
-          const cyanGlow = isNear ? 0.75 : 0.45;
-          const violetGlow = isNear ? 0.55 : 0.25;
-
-          avatar.style.transform = `perspective(400px) rotateX(${tiltX.toFixed(1)}deg) rotateY(${tiltY.toFixed(1)}deg) translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 12px) scale(${scale})`;
-          avatar.style.boxShadow = `${shadowX.toFixed(1)}px ${shadowY.toFixed(1)}px 22px rgba(99, 200, 241, ${cyanGlow}), 0 0 35px rgba(139, 92, 246, ${violetGlow})`;
-        });
-      });
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initInteractiveAuroraAvatar);
-    } else {
-      initInteractiveAuroraAvatar();
     }
   </script>
 </body>
