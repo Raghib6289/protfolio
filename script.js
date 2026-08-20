@@ -49,6 +49,18 @@ window.onscroll = () => {
     if (header) {
         header.classList.toggle('sticky', window.scrollY > 100);
     }
+
+    // Scroll to Top Button Visibility Trigger (Shows ONLY when user reaches bottom of the page)
+    let scrollTopBtn = document.querySelector('.footer-iconTop a');
+    if (scrollTopBtn) {
+        let scrollPosition = window.scrollY + window.innerHeight;
+        let threshold = document.documentElement.scrollHeight - 180; // Within 180px of page bottom
+        if (scrollPosition >= threshold) {
+            scrollTopBtn.classList.add('active');
+        } else {
+            scrollTopBtn.classList.remove('active');
+        }
+    }
 };
 
 // Close mobile navbar on any nav link click

@@ -1420,8 +1420,19 @@ span {
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(183, 75, 75, 0.5);
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-decoration: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.7) translateY(20px);
+    pointer-events: none;
+}
+
+.footer-iconTop a.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
 }
 
 .footer-iconTop a i {
@@ -1430,13 +1441,13 @@ span {
     transition: 0.3s ease;
 }
 
-.footer-iconTop a:hover {
+.footer-iconTop a.active:hover {
     box-shadow: 0 0 25px #b74b4b;
     transform: translateY(-5px) scale(1.1);
     background: #b74b4b;
 }
 
-.footer-iconTop a:hover i {
+.footer-iconTop a.active:hover i {
     color: black;
 }
 
@@ -1806,9 +1817,11 @@ span {
         padding-left: 2rem;
     }
 
-    .footer-iconTop,
     .footer-iconTop a {
-        display: none !important;
+        bottom: 90px;
+        right: 25px;
+        width: 4.4rem;
+        height: 4.4rem;
     }
 
     .ai-assistant-wrapper {
