@@ -1721,37 +1721,33 @@ span {
     #menu-icon {
         display: block;
         font-size: 3rem;
-        color: white;
+        color: #b74b4b;
+        cursor: pointer;
         z-index: 1001;
         transition: 0.3s ease;
     }
 
     #menu-icon.fa-xmark {
         color: #b74b4b;
-        transform: rotate(180deg);
     }
 
     nav {
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 100%;
         right: -100%;
-        width: 320px;
-        max-width: 85vw;
-        height: 100vh;
-        padding: 9rem 2rem 4rem 2rem;
-        background: linear-gradient(180deg, rgba(20, 15, 15, 0.98) 0%, rgba(10, 8, 8, 0.98) 100%);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border-left: 2px solid rgba(183, 75, 75, 0.4);
-        box-shadow: -15px 0 45px rgba(0, 0, 0, 0.95), inset 1px 0 1px rgba(255, 255, 255, 0.1);
+        width: 270px;
+        max-width: 80vw;
+        padding: 1.5rem 2rem;
+        background: #141414;
+        border-left: 2px solid #b74b4b;
+        border-bottom: 2px solid #b74b4b;
+        border-bottom-left-radius: 1.8rem;
+        box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.9);
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 0.6rem;
-        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        gap: 0.5rem;
+        transition: right 0.35s ease;
         z-index: 999;
-        overflow-y: auto;
-        border-bottom-left-radius: 2.5rem;
     }
 
     nav.active {
@@ -1759,46 +1755,24 @@ span {
     }
 
     nav a {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        font-size: 1.7rem;
-        font-weight: 500;
-        color: #ddd;
-        padding: 1.2rem 1.8rem;
-        border-radius: 1.2rem;
-        border-left: 3px solid transparent;
-        border-bottom: none;
-        margin: 0;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        text-decoration: none;
-    }
-
-    nav a i {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        display: block;
         font-size: 1.8rem;
-        color: #b74b4b;
-        width: 2.4rem;
-        height: 2.4rem;
-        transition: 0.3s ease;
+        font-weight: 600;
+        color: #ffffff;
+        padding: 1rem 1.6rem;
+        border-radius: 0.8rem;
+        border-bottom: none;
+        margin: 0.2rem 0;
+        transition: all 0.25s ease;
+        text-decoration: none;
     }
 
     nav a:hover,
     nav a.active {
-        color: #ffffff;
-        background: linear-gradient(135deg, rgba(183, 75, 75, 0.25) 0%, rgba(183, 75, 75, 0.05) 100%);
-        border-left-color: #b74b4b;
+        color: #b74b4b;
+        background: rgba(183, 75, 75, 0.15);
         border-bottom: none;
-        box-shadow: 0 4px 15px rgba(183, 75, 75, 0.2);
-        transform: translateX(6px);
-    }
-
-    nav a:hover i,
-    nav a.active i {
-        color: #ff6b6b;
-        transform: scale(1.15);
+        padding-left: 2rem;
     }
 
     section {
