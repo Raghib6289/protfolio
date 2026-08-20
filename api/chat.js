@@ -60,22 +60,58 @@ const personalDataFallback = {
 function findAnswerLocal(query) {
   const cleanQuery = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
-  const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo'];
-  if (greetings.some(greet => cleanQuery.startsWith(greet) || cleanQuery === greet)) {
-    return "Hi there! 👋 I am Md Raghib's Assistant. Ask me about Md Raghib's skills, projects, certifications, contact details, or education!";
+  const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'good morning', 'good afternoon', 'good evening'];
+  if (greetings.some(greet => cleanQuery === greet || cleanQuery.startsWith(greet + " "))) {
+    return "Hi there! 👋 I am Md Raghib's AI assistant. Ask me about Md Raghib's skills, projects, certifications, contact details, or education!";
   }
 
   const keywordMappings = [
-    { keys: ['name', 'who are you', 'identity', 'who is raghib'], answer: `My name is **${personalDataFallback.name}**. I am a Software Developer & Web Designer.` },
-    { keys: ['age', 'how old'], answer: `I am **${personalDataFallback.age}**.` },
-    { keys: ['email', 'mail'], answer: `You can reach me via email at **${personalDataFallback.email}**.` },
-    { keys: ['phone', 'call', 'number', 'mobile'], answer: `My phone number is **${personalDataFallback.phone}**.` },
-    { keys: ['address', 'location', 'live', 'city'], answer: `I am currently based in **${personalDataFallback.address}**.` },
-    { keys: ['education', 'university', 'college', 'degree', 'study'], answer: `I am studying **${personalDataFallback.education}**.` },
-    { keys: ['skills', 'skill', 'technologies', 'programming', 'stack'], answer: `Here are my core technical skills:\n${personalDataFallback.skills}` },
-    { keys: ['projects', 'project', 'portfolio', 'built'], answer: `Here are my recent highlight projects:\n${personalDataFallback.projects}` },
-    { keys: ['certif', 'certifications', 'certificate', 'credential'], answer: `Here are my 5 certifications:\n${personalDataFallback.certifications}` },
-    { keys: ['contact', 'reach me', 'touch'], answer: `You can reach me via email at **${personalDataFallback.email}** or call **${personalDataFallback.phone}**.\nSocials: ${personalDataFallback.socials}` }
+    // 1. Technical Skills
+    { 
+      keys: ['skill', 'skills', 'tech', 'stack', 'technology', 'technologies', 'programming', 'languages', 'code', 'coding', 'framework', 'frameworks', 'tools', 'frontend', 'backend', 'database'], 
+      answer: `Here are Md Raghib's primary technical skills:\n- **Frontend**: HTML5, CSS3, JavaScript (ES6+), React, TypeScript, TailwindCSS\n- **Backend & Database**: SQL, PostgreSQL, MySQL, Node.js, Express.js, Python, REST APIs, WebSockets\n- **DevOps & Cloud**: Docker, Azure, Git, GitHub` 
+    },
+
+    // 2. Highlight Projects
+    { 
+      keys: ['project', 'projects', 'portfolio', 'built', 'work', 'apps', 'applications', 'devsphere', 'sql analytics'], 
+      answer: `Here are Md Raghib's highlight projects:\n1. **Personal Portfolio Web Application**: Modern responsive web app with scrollSpy, typewriter animation, and AI chatbot.\n2. **SQL Data Analytics & Query System**: Relational database schema with multi-table JOINs, indexing, and data reports.\n3. **DevSphere Workspace**: Real-time developer collaboration workspace built with React & WebSockets.` 
+    },
+
+    // 3. Education
+    { 
+      keys: ['education', 'college', 'university', 'degree', 'study', 'studied', 'graduated', 'academic', 'btech', 'nit', 'narula', 'school', 'stream'], 
+      answer: `**Education Details**:\n- **Degree**: Bachelor of Technology (B.Tech) in Information Technology\n- **Institution**: Narula Institute of Technology\n- **Timeline**: 2024 - Present (GPA: 8.5/10)` 
+    },
+
+    // 4. Certifications
+    { 
+      keys: ['certif', 'certification', 'certifications', 'certificate', 'credentials', 'azure', 'deloitte', 'geeksforgeeks', 'associate'], 
+      answer: `Md Raghib holds 5 key certifications:\n1. **SQL AI Certified Developer – Associate (2026)**\n2. **Microsoft Certified: Azure AI Fundamentals (2025)**\n3. **Data Analytics Professional Certification**\n4. **Deloitte Consulting Data Analytics Virtual Experience**\n5. **GeeksforGeeks Generative AI & LLM Engineering Specialization**` 
+    },
+
+    // 5. Contact & Socials
+    { 
+      keys: ['contact', 'email', 'mail', 'phone', 'call', 'number', 'mobile', 'reach', 'touch', 'linkedin', 'github', 'social', 'socials', 'hire'], 
+      answer: `You can reach Md Raghib via:\n- **Email**: kraghib123@gmail.com\n- **Phone**: +91 6289007171\n- **LinkedIn**: linkedin.com/in/md~raghib\n- **GitHub**: github.com/raghib6289` 
+    },
+
+    // 6. Experience & Career
+    { 
+      keys: ['experience', 'job', 'work experience', 'career', 'freelance', 'role', 'history'], 
+      answer: `Md Raghib works as an independent **Web Developer, UI Designer & SQL Database Developer** (2025-Present), creating responsive web applications and database solutions for clients and academic projects.` 
+    },
+
+    // 7. Age, Location, Hobbies
+    { keys: ['location', 'address', 'live', 'city', 'kolkata', 'where'], answer: `Md Raghib is based in **Kolkata, West Bengal, India**.` },
+    { keys: ['age', 'how old', 'dob', 'birthday', 'born'], answer: `Md Raghib is **22 years old** (Born December 17, 2003).` },
+    { keys: ['hobby', 'hobbies', 'free time', 'leisure', 'fun', 'game', 'cricket'], answer: `Outside coding, Raghib enjoys **Cricket, indie video games, espresso brewing, and digital illustration**.` },
+
+    // 8. Identity & Who is Md Raghib / About (Catches any general questions)
+    { 
+      keys: ['who is', 'who', 'raghib', 'md', 'name', 'identity', 'about', 'background', 'bio', 'intro', 'person', 'him', 'himself', 'yourself', 'who are you', 'tell me about'], 
+      answer: `**Md Raghib** is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He specializes in full-stack web application development, SQL database architecture, and user-centered UI/UX design.` 
+    }
   ];
 
   for (const mapping of keywordMappings) {

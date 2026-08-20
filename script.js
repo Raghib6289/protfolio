@@ -299,28 +299,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Client-side Heuristic Knowledge Engine (Fallbacks when server endpoint is offline)
     function generateLocalResponse(query) {
-        const q = query.toLowerCase().trim();
+        const q = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
-        if (q.includes("hi") || q.includes("hello") || q.includes("hey")) {
+        if (q === "hi" || q === "hello" || q === "hey" || q.startsWith("hi ") || q.startsWith("hello ")) {
             return "Hi there! 👋 How can I help you regarding **Md Raghib's** background, skills, or portfolio?";
         }
-        if (q.includes("who is") || q.includes("name") || q.includes("about") || q.includes("raghib")) {
-            return "<strong>Md Raghib</strong> is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He builds responsive, scalable web applications and user-centered solutions.";
-        }
-        if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("code")) {
+        if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("code") || q.includes("programming")) {
             return "Here are Raghib's primary skills:\n- **Frontend**: HTML5, CSS3, JavaScript (ES6+), React, TypeScript, TailwindCSS\n- **Backend & Database**: SQL, PostgreSQL, MySQL, Node.js, Express, Python\n- **Tools**: Git, GitHub, Docker, Azure";
         }
-        if (q.includes("education") || q.includes("college") || q.includes("degree") || q.includes("study")) {
+        if (q.includes("education") || q.includes("college") || q.includes("degree") || q.includes("study") || q.includes("studied")) {
             return "Raghib is currently pursuing his **B.Tech in Information Technology** at Narula Institute of Technology (2024-Present, GPA: 8.5/10).";
         }
-        if (q.includes("project") || q.includes("portfolio") || q.includes("work")) {
+        if (q.includes("project") || q.includes("portfolio") || q.includes("built") || q.includes("apps")) {
             return "Highlight Projects by Raghib:\n1. **Personal Portfolio**: Modern responsive portfolio with dark-crimson aesthetics and AI chatbot.\n2. **SQL Data Analytics System**: Complex queries, indexing, and data modeling.\n3. **DevSphere**: Real-time developer workspace built with React & WebSockets.";
         }
-        if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach")) {
+        if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("linkedin") || q.includes("github")) {
             return "You can reach Md Raghib at:\n- **Email**: kraghib123@gmail.com\n- **Phone**: +91 6289007171\n- **LinkedIn**: linkedin.com/in/md~raghib\n- **GitHub**: github.com/raghib6289";
         }
         if (q.includes("certif")) {
             return "Raghib's 5 Certifications:\n1. **SQL AI Certified Developer – Associate (2026)**\n2. **Microsoft Certified: Azure AI Fundamentals (2025)**\n3. **Data Analytics Professional Certification**\n4. **Deloitte Consulting Data Analytics Virtual Experience**\n5. **GeeksforGeeks Generative AI & LLM Engineering Specialization**";
+        }
+        if (q.includes("who") || q.includes("raghib") || q.includes("md") || q.includes("about") || q.includes("name") || q.includes("background") || q.includes("bio")) {
+            return "<strong>Md Raghib</strong> is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He builds responsive, scalable web applications and user-centered solutions.";
         }
 
         return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info!";

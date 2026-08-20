@@ -87,89 +87,67 @@ const personalDataFallback = {
 function findAnswerLocal(query) {
   const cleanQuery = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
-  // Greetings / Small Talk
   const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'good morning', 'good afternoon', 'good evening'];
-  if (greetings.some(greet => cleanQuery.startsWith(greet) || cleanQuery === greet)) {
+  if (greetings.some(greet => cleanQuery === greet || cleanQuery.startsWith(greet + " "))) {
     return "Hi there! 👋 I am Md Raghib's AI assistant. Ask me about Md Raghib's skills, projects, contact details, or education!";
   }
 
-  // Keywords mapping
   const keywordMappings = [
-    {
-      keys: ['name', 'who are you', 'your identity', 'called', 'who is this', 'what are you', 'your name'],
-      answer: `My name is **${personalDataFallback.name}**. I am a Full-Stack Software Engineer.`
+    // 1. Technical Skills
+    { 
+      keys: ['skill', 'skills', 'tech', 'stack', 'technology', 'technologies', 'programming', 'languages', 'code', 'coding', 'framework', 'frameworks', 'tools', 'frontend', 'backend', 'database'], 
+      answer: `Here are Md Raghib's primary technical skills:\n- **Frontend**: HTML5, CSS3, JavaScript (ES6+), React, TypeScript, TailwindCSS\n- **Backend & Database**: SQL, PostgreSQL, MySQL, Node.js, Express.js, Python, REST APIs, WebSockets\n- **DevOps & Cloud**: Docker, Azure, Git, GitHub` 
     },
-    {
-      keys: ['age', 'how old', 'your age'],
-      answer: `I am **${personalDataFallback.age}**.`
+
+    // 2. Highlight Projects
+    { 
+      keys: ['project', 'projects', 'portfolio', 'built', 'work', 'apps', 'applications', 'devsphere', 'sql analytics'], 
+      answer: `Here are Md Raghib's highlight projects:\n1. **Personal Portfolio Web Application**: Modern responsive web app with scrollSpy, typewriter animation, and AI chatbot.\n2. **SQL Data Analytics & Query System**: Relational database schema with multi-table JOINs, indexing, and data reports.\n3. **DevSphere Workspace**: Real-time developer collaboration workspace built with React & WebSockets.` 
     },
-    {
-      keys: ['date of birth', 'dob', 'birthday', 'born', 'birth date'],
-      answer: `My date of birth is **${personalDataFallback.dob}**.`
+
+    // 3. Education
+    { 
+      keys: ['education', 'college', 'university', 'degree', 'study', 'studied', 'graduated', 'academic', 'btech', 'nit', 'narula', 'school', 'stream'], 
+      answer: `**Education Details**:\n- **Degree**: Bachelor of Technology (B.Tech) in Information Technology\n- **Institution**: Narula Institute of Technology\n- **Timeline**: 2024 - Present (GPA: 8.5/10)` 
     },
-    {
-      keys: ['email', 'mail', 'e-mail'],
-      answer: `You can reach me via email at **${personalDataFallback.email}**.`
+
+    // 4. Certifications
+    { 
+      keys: ['certif', 'certification', 'certifications', 'certificate', 'credentials', 'azure', 'deloitte', 'geeksforgeeks', 'associate'], 
+      answer: `Md Raghib holds 5 key certifications:\n1. **SQL AI Certified Developer – Associate (2026)**\n2. **Microsoft Certified: Azure AI Fundamentals (2025)**\n3. **Data Analytics Professional Certification**\n4. **Deloitte Consulting Data Analytics Virtual Experience**\n5. **GeeksforGeeks Generative AI & LLM Engineering Specialization**` 
     },
-    {
-      keys: ['phone', 'call', 'number', 'mobile', 'cellphone'],
-      answer: `My phone number is **${personalDataFallback.phone}**.`
+
+    // 5. Contact & Socials
+    { 
+      keys: ['contact', 'email', 'mail', 'phone', 'call', 'number', 'mobile', 'reach', 'touch', 'linkedin', 'github', 'social', 'socials', 'hire'], 
+      answer: `You can reach Md Raghib via:\n- **Email**: kraghib123@gmail.com\n- **Phone**: +91 6289007171\n- **LinkedIn**: linkedin.com/in/md~raghib\n- **GitHub**: github.com/raghib6289` 
     },
-    {
-      keys: ['address', 'location', 'live', 'reside', 'located', 'where are you', 'city', 'state', 'street'],
-      answer: `I am currently based at **${personalDataFallback.address}**.`
+
+    // 6. Experience & Career
+    { 
+      keys: ['experience', 'job', 'work experience', 'career', 'freelance', 'role', 'history'], 
+      answer: `Md Raghib works as an independent **Web Developer, UI Designer & SQL Database Developer** (2025-Present), creating responsive web applications and database solutions for clients and academic projects.` 
     },
-    {
-      keys: ['education', 'university', 'college', 'school', 'degree', 'study', 'studied', 'graduated', 'academic'],
-      answer: `I completed my **${personalDataFallback.education}**.`
-    },
-    {
-      keys: ['skills', 'skill', 'good at', 'expert', 'languages you know', 'technologies', 'programming', 'tech stack', 'know', 'code', 'stack'],
-      answer: `Here are my core technical skills:\n${personalDataFallback.skills}`
-    },
-    {
-      keys: ['experience', 'work', 'job', 'employment', 'history', 'career', 'worked', 'employer', 'role', 'roles'],
-      answer: `Here is a summary of my work experience:\n${personalDataFallback.experience}`
-    },
-    {
-      keys: ['projects', 'project', 'portfolio', 'built', 'made', 'developed', 'apps', 'applications', 'creation', 'creations'],
-      answer: `Here are my recent highlight projects:\n${personalDataFallback.projects}`
-    },
-    {
-      keys: ['certifications', 'certification', 'certificate', 'certified', 'credentials'],
-      answer: `My current certifications include: **${personalDataFallback.certifications}**.`
-    },
-    {
-      keys: ['languages', 'speak', 'talk', 'spanish', 'english', 'linguistic'],
-      answer: `I am fluent in: **${personalDataFallback.languages}**.`
-    },
-    {
-      keys: ['hobbies', 'hobby', 'free time', 'leisure', 'interests', 'do for fun', 'pastime', 'hike', 'painting', 'games'],
-      answer: `Outside of coding, my hobbies include: **${personalDataFallback.hobbies}**.`
-    },
-    {
-      keys: ['objective', 'career goal', 'career objective', 'aim', 'goal', 'ambition', 'motivation'],
-      answer: `My current career objective is:\n${personalDataFallback.objective}`
-    },
-    {
-      keys: ['social', 'linkedin', 'github', 'twitter', 'facebook', 'instagram', 'links', 'webpage', 'profile', 'profiles'],
-      answer: `Feel free to connect with me online:\n${personalDataFallback.socials}`
-    },
-    {
-      keys: ['contact', 'reach me', 'get in touch', 'write to', 'phone number', 'email address'],
-      answer: `You can reach me via email at **${personalDataFallback.email}** or call me at **${personalDataFallback.phone}**. You can also check out my socials: ${personalDataFallback.socials}`
+
+    // 7. Age, Location, Hobbies
+    { keys: ['location', 'address', 'live', 'city', 'kolkata', 'where'], answer: `Md Raghib is based in **Kolkata, West Bengal, India**.` },
+    { keys: ['age', 'how old', 'dob', 'birthday', 'born'], answer: `Md Raghib is **22 years old** (Born December 17, 2003).` },
+    { keys: ['hobby', 'hobbies', 'free time', 'leisure', 'fun', 'game', 'cricket'], answer: `Outside coding, Raghib enjoys **Cricket, indie video games, espresso brewing, and digital illustration**.` },
+
+    // 8. Identity & Who is Md Raghib / About (Catches any general questions)
+    { 
+      keys: ['who is', 'who', 'raghib', 'md', 'name', 'identity', 'about', 'background', 'bio', 'intro', 'person', 'him', 'himself', 'yourself', 'who are you', 'tell me about'], 
+      answer: `**Md Raghib** is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He specializes in full-stack web application development, SQL database architecture, and user-centered UI/UX design.` 
     }
   ];
 
-  // Search for matches
   for (const mapping of keywordMappings) {
     if (mapping.keys.some(k => cleanQuery.includes(k))) {
       return mapping.answer;
     }
   }
 
-  // Strict Fallback Response if Unrelated
-  return "Sorry, I can only answer questions related to my personal information.";
+  return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, certifications, and contact details!";
 }
 
 // 4. REST API Endpoint
