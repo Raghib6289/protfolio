@@ -87,6 +87,19 @@ const personalDataFallback = {
 function findAnswerLocal(query) {
   const cleanQuery = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
+  // 0. Guardrail: Private, Dating, Relationship, Inappropriate, Salary, Secrets
+  const offLimitsKeys = [
+    'gf', 'girlfriend', 'bf', 'boyfriend', 'dating', 'relationship', 
+    'single', 'married', 'marry', 'marriage', 'wife', 'husband', 'crush', 'lover', 
+    'partner', 'love', 'affair', 'private', 'personal life', 'salary', 
+    'income', 'net worth', 'networth', 'earn', 'earning', 'secret', 'password'
+  ];
+
+  const words = cleanQuery.split(/\s+/);
+  if (offLimitsKeys.some(key => cleanQuery.includes(key) || words.includes(key))) {
+    return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
+  }
+
   const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'good morning', 'good afternoon', 'good evening'];
   if (greetings.some(greet => cleanQuery === greet || cleanQuery.startsWith(greet + " "))) {
     return "Hi there! 👋 I am Md Raghib's AI assistant. Ask me about Md Raghib's skills, projects, contact details, or education!";
@@ -147,7 +160,7 @@ function findAnswerLocal(query) {
     }
   }
 
-  return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, certifications, and contact details!";
+  return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
 }
 
 // 4. REST API Endpoint

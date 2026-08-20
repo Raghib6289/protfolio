@@ -301,6 +301,19 @@ document.addEventListener("DOMContentLoaded", function () {
     function generateLocalResponse(query) {
         const q = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
+        // Guardrail: Private / Dating / Relationship / Salary / Off-limits
+        const offLimits = [
+            'gf', 'girlfriend', 'bf', 'boyfriend', 'dating', 'relationship', 
+            'single', 'married', 'marry', 'marriage', 'wife', 'husband', 'crush', 'lover', 
+            'partner', 'love', 'affair', 'private', 'personal life', 'salary', 
+            'income', 'net worth', 'networth', 'earn', 'earning', 'secret', 'password'
+        ];
+
+        const words = q.split(/\s+/);
+        if (offLimits.some(key => q.includes(key) || words.includes(key))) {
+            return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
+        }
+
         if (q === "hi" || q === "hello" || q === "hey" || q.startsWith("hi ") || q.startsWith("hello ")) {
             return "Hi there! 👋 How can I help you regarding **Md Raghib's** background, skills, or portfolio?";
         }
@@ -323,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return "<strong>Md Raghib</strong> is a 22-year-old **Software Developer, Web Developer & Web Designer** based in Kolkata, India. He builds responsive, scalable web applications and user-centered solutions.";
         }
 
-        return "Sorry, I can only answer questions related to **Md Raghib's** personal background, skills, projects, and contact info!";
+        return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
     }
 
     // Certifications Continuous Floating Horizontal Slider Logic

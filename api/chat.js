@@ -60,6 +60,19 @@ const personalDataFallback = {
 function findAnswerLocal(query) {
   const cleanQuery = query.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
 
+  // 0. Guardrail: Private, Dating, Relationship, Inappropriate, Salary, Secrets
+  const offLimitsKeys = [
+    'gf', 'girlfriend', 'bf', 'boyfriend', 'dating', 'relationship', 
+    'single', 'married', 'marry', 'marriage', 'wife', 'husband', 'crush', 'lover', 
+    'partner', 'love', 'affair', 'private', 'personal life', 'salary', 
+    'income', 'net worth', 'networth', 'earn', 'earning', 'secret', 'password'
+  ];
+
+  const words = cleanQuery.split(/\s+/);
+  if (offLimitsKeys.some(key => cleanQuery.includes(key) || words.includes(key))) {
+    return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
+  }
+
   const greetings = ['hi', 'hello', 'hey', 'greetings', 'sup', 'yo', 'good morning', 'good afternoon', 'good evening'];
   if (greetings.some(greet => cleanQuery === greet || cleanQuery.startsWith(greet + " "))) {
     return "Hi there! 👋 I am Md Raghib's AI assistant. Ask me about Md Raghib's skills, projects, certifications, contact details, or education!";
@@ -120,7 +133,7 @@ function findAnswerLocal(query) {
     }
   }
 
-  return "Sorry, I can only answer questions related to Md Raghib's personal background, skills, projects, certifications, and contact details!";
+  return "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details.";
 }
 
 module.exports = async (req, res) => {
@@ -153,11 +166,15 @@ module.exports = async (req, res) => {
     try {
       const genAI = new GoogleGenerativeAI(apiKey);
       const systemInstruction = `You are a helpful, professional AI assistant for Md Raghib.
-Answer questions about Md Raghib's personal background, portfolio, education, skills, certifications, and experience.
-Database:
-${personalDataText}
+Your ONLY role is to answer questions about Md Raghib's professional background, skills, portfolio projects, certifications, education, and professional contact details.
 
-If question is unrelated, reply: "Sorry, I can only answer questions related to Md Raghib's personal information."`;
+CRITICAL GUARDRAILS:
+1. Do NOT answer any questions about Md Raghib's personal relationships, dating life, girlfriend/boyfriend, relationship status, family details, salary, net worth, or private personal matters.
+2. If the user asks about girlfriend, dating, relationship, salary, private life, or anything unrelated to his professional portfolio, reply EXACTLY: "I can only provide information about Md Raghib's professional profile, technical skills, highlight projects, certifications, and public contact details."
+3. Keep all responses professional, concise, and structured with Markdown bolding.
+
+Database:
+${personalDataText}`;
 
       const geminiModel = genAI.getGenerativeModel({
         model: "gemini-1.5-flash",
