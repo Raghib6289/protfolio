@@ -39,7 +39,7 @@ GPA: 8.5/10
 5. GeeksforGeeks Generative AI & LLM Engineering Specialization - Large Language Models (LLMs), prompt engineering, RAG, and AI architecture.
 
 [Social Media Links]
-- LinkedIn: linkedin.com/in/md~raghib
+- LinkedIn: linkedin.com/in/mdraghib
 - GitHub: github.com/raghib6289
 `;
 
